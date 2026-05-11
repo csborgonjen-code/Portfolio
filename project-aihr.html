@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resource Library Redesign — AIHR · Chiel Borgonjen</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { garamond: ['"EB Garamond"', 'serif'] },
+          colors: { accent: '#659d89' }
+        }
+      }
+    }
+  </script>
+  <style>
+    p, li {
+      font-family: 'Inter', sans-serif !important;
+      font-weight: 300 !important;
+      line-height: 1.5 !important;
+      color: #666;
+      font-size: 16px;
+    }
+    p.garamond-500 {
+      font-family: 'EB Garamond', serif !important;
+      font-weight: 500 !important;
+    }
+    img {
+      mix-blend-mode: multiply;
+    }
+  </style>
+</head>
+<body class="bg-white font-garamond max-w-[1440px] mx-auto flex flex-col gap-12 lg:gap-20 pb-12 lg:pb-20">
+
+  <!-- Page Header -->
+  <div class="bg-[#f8f8f7] flex flex-col justify-center min-h-[280px] lg:min-h-[606px] px-6 sm:px-12 lg:px-40 py-16 lg:py-[110px] relative">
+    <a href="index.html" class="absolute left-6 sm:left-12 lg:left-40 top-6 lg:top-[53px] text-accent text-[16px] font-normal hover:opacity-70 transition-opacity" style="font-family: 'EB Garamond', serif;">Portfolio</a>
+    <p class="garamond-500 text-[36px] sm:text-[52px] lg:text-[74px] leading-tight lg:leading-[87px] text-accent">Resource Library Redesign</p>
+    <p class="garamond-500 text-[36px] sm:text-[52px] lg:text-[74px] leading-tight lg:leading-[87px] text-black">AIHR</p>
+  </div>
+
+  <!-- Context and Role -->
+  <div class="flex flex-col sm:flex-row gap-8 lg:gap-20 items-start px-6 sm:px-12 lg:px-40">
+    <div class="flex-1 max-w-full lg:max-w-[700px]">
+      <p class="garamond-500 text-[20px] sm:text-[24px] lg:text-[28px] leading-[30px] sm:leading-[36px] lg:leading-[44px] text-[#333]">From a hidden gem to the platform's most visited feature, doubling monthly usage in 5 months.</p>
+    </div>
+    <div class="w-full sm:w-[320px] text-[15px] font-medium text-[#666] leading-[26px]">
+      <p>Timeline: 5 months project</p>
+      <p>My role: Service / UX designer & project manager.</p>
+      <p>Team: Product marketing, content, VP of product & engineering.</p>
+    </div>
+  </div>
+
+  <!-- Full Image — Before/After -->
+  <div class="bg-[#f8f8f7] px-6 sm:px-12 lg:px-40 py-10 lg:py-20 flex flex-col gap-6 lg:gap-10 items-center">
+    <div class="flex flex-col sm:flex-row gap-6 lg:gap-10 w-full h-auto sm:h-[340px] lg:h-[460px]">
+      <div class="flex-1 shadow-[0px_24px_48px_0px_rgba(16,24,40,0.18)] overflow-hidden">
+        <img src="assets/aihr-before.png" alt="" class="w-full h-full object-cover object-top">
+      </div>
+      <div class="flex-1 shadow-[0px_24px_48px_0px_rgba(16,24,40,0.18)] overflow-hidden">
+        <img src="assets/aihr-after.png" alt="" class="w-full h-full object-cover object-top">
+      </div>
+    </div>
+    <p class="text-[16px] font-medium text-[#666] leading-[26px] text-center">Before (left) and after (right) — the redesigned resource library overview page</p>
+  </div>
+
+  <!-- The Challenge -->
+  <div class="px-6 sm:px-12 lg:px-40 flex flex-col gap-4">
+    <h2 class="text-[28px] sm:text-[36px] lg:text-[48px] font-medium text-black leading-tight">The challenge</h2>
+    <div class="text-[16px] font-medium text-[#666] leading-[26px] space-y-4">
+      <p>The resource library was one of the main reasons people renewed their subscription, yet only 36% of total members ever interacted with it. A clear missed opportunity.</p>
+      <p>The design challenge: How would you make the Resource Library more valuable? Which feature would you add?</p>
+      <p>Beyond feature design, we had two KPIs: increase resource library adoption and increase overall platform activities per month. The more people interact with the platform, the more reason they have to renew.</p>
+    </div>
+  </div>
+
+  <!-- Full Image — UX audit -->
+  <div class="px-6 sm:px-12 lg:px-40 py-10 lg:py-20 flex flex-col gap-6 lg:gap-10 items-center">
+    <div class="w-full">
+      <img src="assets/aihr-ux-audit.png" alt="" class="w-full h-auto">
+    </div>
+    <p class="text-[16px] font-medium text-[#666] leading-[26px]">A snapshot of the UX audit — 38 screens analysed across the full platform</p>
+  </div>
+
+  <!-- The Process -->
+  <div class="px-6 sm:px-12 lg:px-40 flex flex-col gap-4">
+    <h2 class="text-[28px] sm:text-[36px] lg:text-[48px] font-medium text-black leading-tight">The process</h2>
+    <p class="text-[16px] font-medium text-[#666] leading-[26px]">The project ran across three phases of four weeks each — discover, define, and deliver. All design starts with the customer, context, and business.</p>
+  </div>
+
+  <!-- 1. Discover -->
+  <div class="flex flex-col-reverse lg:flex-row gap-10 lg:gap-20 items-start lg:items-center px-6 sm:px-12 lg:px-40">
+    <div class="w-full lg:w-[345px] flex flex-col gap-4">
+      <h3 class="text-[20px] lg:text-[24px] font-medium text-[#333] leading-[36px]">1. Discover</h3>
+      <div class="text-[16px] font-medium text-[#666] leading-[26px] space-y-3">
+        <p>This was my first project at AIHR, so I started with a thorough UX audit, reviewing all 38 screens of the platform, mapping patterns, filters, styling inconsistencies, and user flows.</p>
+        <p>One of the biggest findings: the platform ran on three separate backends. Every time a user navigated between sections, the entire menu structure changed. Items disappeared, order shifted, no wonder people couldn't find the Resource Library.</p>
+        <p>I also interviewed key stakeholders across sales, CIO, content, and engineering, and conducted 5 user interviews. The biggest insight: once users discover the value of the Resource Library, they become monthly actives and don't churn. But they were landing there mostly by accident.</p>
+      </div>
+    </div>
+    <div class="bg-[#f8f8f7] w-full lg:flex-1 p-6 lg:p-10 flex flex-col gap-4">
+      <img src="assets/aihr-interview-board.png" alt="" class="max-h-[440px] w-auto max-w-full mx-auto block">
+      <p class="text-[16px] font-medium text-[#666] leading-[26px]">Interview board with insights and problem clusters</p>
+    </div>
+  </div>
+
+  <!-- Full Image — Customer Journey Map -->
+  <div class="bg-[#f8f8f7] px-6 sm:px-12 lg:px-40 py-10 lg:py-20 flex flex-col gap-6 lg:gap-10 items-center">
+    <div class="w-full">
+      <img src="assets/aihr-journey-map.png" alt="" class="w-full h-auto shadow-[0px_24px_48px_0px_rgba(16,24,40,0.18)]">
+    </div>
+    <p class="text-[16px] font-medium text-[#666] leading-[26px]">Customer journey map synthesising all research: problems, opportunities and interviews in one overview</p>
+  </div>
+
+  <!-- Full Image — 5 Opportunity Fields -->
+  <div class="bg-[#f8f8f7] px-6 sm:px-12 lg:px-40 py-10 lg:py-20 flex flex-col gap-6 lg:gap-10 items-center">
+    <img src="assets/aihr-opportunities.png" alt="" class="w-full h-auto shadow-[0px_24px_48px_0px_rgba(16,24,40,0.18)]">
+    <p class="text-[16px] font-medium text-[#666] leading-[26px]">5 opportunity fields</p>
+  </div>
+
+  <!-- 2. Define -->
+  <div class="flex flex-col lg:flex-row gap-10 lg:gap-20 items-start px-6 sm:px-12 lg:px-40">
+    <div class="bg-[#f8f8f7] w-full lg:flex-1 p-6 lg:p-10 flex flex-col gap-4">
+      <img src="assets/aihr-nav-before-after.png" alt="" class="max-h-[440px] w-auto max-w-full mx-auto block">
+      <p class="text-[16px] font-medium text-[#666] leading-[26px] text-center">Before: complex, cluttered navigation with inconsistent structure across platforms.<br>After: a simplified, grouped navigation with clearer hierarchy and consistent labels</p>
+    </div>
+    <div class="w-full lg:w-[345px] flex flex-col gap-4">
+      <h3 class="text-[20px] lg:text-[24px] font-medium text-[#333] leading-[36px]">2. Define</h3>
+      <div class="text-[16px] font-medium text-[#666] leading-[26px] space-y-3">
+        <p>Navigation felt like the most urgent problem. Users told us they struggled to find the Resource Library — and the audit confirmed it. Three platforms, three menus, inconsistent ordering.</p>
+        <p>Aligning the three menus required significant coordination with all colleagues — when to release, what to cut, how to reorder. Through that process, it became clear just how fragmented the underlying platform was.</p>
+        <p>The goal was radical simplification: remove as many items as possible, so the Resource Library could actually be found.</p>
+        <p>The new menu introduced clear groupings (Tools, Connect, Your courses, Settings), simplified iconography, and a consistent structure across all three platforms.</p>
+        <p>Every item that wasn't essential was removed. The Resource Library moved to a top-level "Tools" group — immediately visible, no drilling required.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Deliver -->
+  <div class="flex flex-col-reverse lg:flex-row gap-10 lg:gap-20 items-start lg:items-center px-6 sm:px-12 lg:px-40">
+    <div class="w-full lg:w-[345px] flex flex-col gap-4">
+      <h3 class="text-[20px] lg:text-[24px] font-medium text-[#333] leading-[36px]">3. Deliver</h3>
+      <div class="text-[16px] font-medium text-[#666] leading-[26px] space-y-3">
+        <p>With the navigation fixed, I redesigned the resource library from the ground up. I also set up a design system — so from this point forward, the entire platform could have a consistent UI.</p>
+        <p>Key improvements:</p>
+        <ul class="list-disc ml-6 space-y-1">
+          <li>Redesigned thumbnails — pages felt less cluttered and more scannable</li>
+          <li>Added social proof via download counts — showing popularity at a glance</li>
+          <li>Rebuilt the resource detail page with a full preview carousel, so members understand exactly what they'll download before committing</li>
+        </ul>
+      </div>
+    </div>
+    <div class="bg-[#f8f8f7] w-full lg:flex-1 p-6 lg:p-10 flex flex-col gap-4">
+      <img src="assets/aihr-detail-page.png" alt="" class="max-h-[440px] w-auto max-w-full mx-auto block">
+      <p class="text-[16px] font-medium text-[#666] leading-[26px]">Early sketches exploring different layouts for the resource detail panel</p>
+    </div>
+  </div>
+
+  <!-- Full Image — Redesigned Resource Library -->
+  <div class="bg-[#f8f8f7] px-6 sm:px-12 lg:px-40 py-10 lg:py-20 flex flex-col gap-6 lg:gap-10 items-center">
+    <img src="assets/aihr-resource-library.png" alt="" class="max-h-[440px] w-auto max-w-full mx-auto block">
+    <p class="text-[16px] font-medium text-[#666] leading-[26px]">The redesigned resource library, cleaner cards, social proof, and an improved detail page with preview</p>
+  </div>
+
+  <!-- Impact and Results -->
+  <div class="flex flex-col lg:flex-row gap-10 lg:gap-20 items-start px-6 sm:px-12 lg:px-40">
+    <div class="flex flex-col gap-4 w-full lg:w-[40%] shrink-0">
+      <h2 class="text-[28px] sm:text-[36px] lg:text-[48px] font-medium text-black leading-tight lg:leading-[87px]">The Impact and results</h2>
+      <ul class="list-disc ml-6 text-[15px] font-medium text-[#666] leading-[26px] space-y-2">
+        <li>After launching the redesigned Resource Library, the new navigation, and the updated marketing emails, platform usage doubled within months.</li>
+        <li>Resource Library adoption: from 36% to 48% of total members, in just 5 months.</li>
+        <li>Monthly platform activities: more than doubled, from ~10K to over 21K activities per month.</li>
+      </ul>
+    </div>
+    <div class="bg-[#f8f8f7] w-full lg:flex-1 p-6 lg:p-10 flex flex-col gap-4">
+      <img src="assets/aihr-ceo-results.png" alt="" class="max-h-[440px] w-auto max-w-full mx-auto block">
+      <p class="text-[16px] font-medium text-[#666] leading-[26px]">CEO presenting 2x usage results because of the redesign</p>
+    </div>
+  </div>
+
+  <!-- Reflection -->
+  <div class="px-6 sm:px-12 lg:px-40 flex flex-col gap-4">
+    <h2 class="text-[28px] sm:text-[36px] lg:text-[48px] font-medium text-black leading-tight lg:leading-[87px]">Reflection</h2>
+    <p class="text-[15px] font-medium text-[#666] leading-[26px] max-w-full">The key insight from research — that users who discover the library's value keep coming back — proved to be the right north star. By making discovery easier (navigation), comprehension better (detail page), and reach wider (emails), we unlocked latent engagement that was always there. The design system set the foundation for consistent UI going forward.</p>
+  </div>
+
+</body>
+</html>
