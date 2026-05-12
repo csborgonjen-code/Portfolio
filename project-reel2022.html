@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reel 2022 — Rituals · Chiel Borgonjen</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { garamond: ['"EB Garamond"', 'serif'] },
+          colors: { accent: '#659d89' }
+        }
+      }
+    }
+  </script>
+  <style>
+    p, li {
+      font-family: 'Inter', sans-serif !important;
+      font-weight: 300 !important;
+      line-height: 1.5 !important;
+      color: #666;
+      font-size: 16px;
+    }
+    p.garamond-500 {
+      font-family: 'EB Garamond', serif !important;
+      font-weight: 500 !important;
+    }
+  </style>
+</head>
+<body class="bg-white font-garamond max-w-[1440px] mx-auto flex flex-col gap-12 lg:gap-20 pb-12 lg:pb-20">
+
+  <!-- Page Header -->
+  <div class="bg-[#f8f8f7] flex flex-col justify-center min-h-[280px] lg:min-h-[606px] px-6 sm:px-12 lg:px-40 py-16 lg:py-[110px] relative">
+    <a href="index.html" class="absolute left-6 sm:left-12 lg:left-40 top-6 lg:top-[53px] text-accent text-[16px] font-normal hover:opacity-70 transition-opacity" style="font-family: 'EB Garamond', serif;">Portfolio</a>
+    <p class="garamond-500 text-[36px] sm:text-[52px] lg:text-[74px] leading-tight lg:leading-[87px] text-accent">Reel 2022</p>
+    <p class="garamond-500 text-[36px] sm:text-[52px] lg:text-[74px] leading-tight lg:leading-[87px] text-black">Rituals</p>
+  </div>
+
+  <!-- Context and Role -->
+  <div class="flex flex-col sm:flex-row gap-8 lg:gap-20 items-start px-6 sm:px-12 lg:px-40">
+    <div class="flex-1 max-w-full lg:max-w-[700px]">
+      <p class="garamond-500 text-[20px] sm:text-[24px] lg:text-[28px] leading-[30px] sm:leading-[36px] lg:leading-[44px] text-[#333]">Fourteen designers. 63 projects. What a year to be in the room.</p>
+    </div>
+    <div class="w-full sm:w-[320px]">
+      <p>Team of 14 designers across UX, UI, and motion. As lead UX designer I shaped flows, set direction, and had a meaningful say across many of the 63 projects, not always end-responsible, but always in the mix.</p>
+    </div>
+  </div>
+
+  <!-- Full-width Video -->
+  <div class="bg-[#f8f8f7] px-6 sm:px-12 lg:px-40 py-10 lg:py-20 flex flex-col gap-6 lg:gap-10 items-center">
+    <video
+      src="assets/reel 2022.mp4"
+      class="w-full h-auto block"
+      autoplay loop muted playsinline
+    ></video>
+    <p class="text-[16px] text-[#666] text-center">A year's worth of UI, motion, and experience design captured in two minutes</p>
+  </div>
+
+  <!-- Key Takeaways -->
+  <div class="px-6 sm:px-12 lg:px-40 flex flex-col gap-4">
+    <h2 class="garamond-500 text-[28px] sm:text-[36px] lg:text-[48px] text-black leading-tight">Key Takeaways</h2>
+    <div class="max-w-full lg:max-w-[700px] flex flex-col gap-3">
+      <p>Sixty-three projects in a year sounds like a lot, because it is. But when you're surrounded by talented motion designers, UI designers, and a team that cares about design, it stops feeling like a volume problem and starts feeling like a privilege.</p>
+      <p>My role wasn't to own the pixels. It was to make sure every project had a clear UX direction, that the interactions made sense, the flows were coherent, and the experience felt like Rituals. Sometimes that meant facilitating. Sometimes it meant pushing back.</p>
+      <p>The reel is mostly UI and motion, beautiful work by a talented team. What you don't see is the thinking underneath it. That's where I lived.</p>
+    </div>
+  </div>
+
+</body>
+</html>

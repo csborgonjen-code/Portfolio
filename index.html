@@ -102,7 +102,7 @@
 
     <!-- Project 1: Rituals -->
     <div class="flex-1">
-      <a href="project-rituals.html" class="block overflow-hidden mb-4 h-[240px] sm:h-[320px] lg:h-[420px] bg-[#f0ede8] flex items-center justify-center" style="transform-style: preserve-3d;">
+      <a href="project-rituals.html" class="block overflow-hidden mb-4 h-[240px] sm:h-[320px] lg:h-[420px] flex items-center justify-center" style="transform-style: preserve-3d;">
         <img
           src="assets/rituals-thumbnail.png"
           alt="CRM Loyalty Program — Rituals"
@@ -116,16 +116,42 @@
 
     <!-- Project 2: AIHR -->
     <div class="flex-1">
-      <a href="project-aihr.html" class="block overflow-hidden mb-4 h-[240px] sm:h-[320px] lg:h-[420px] bg-[#f0ede8]" style="transform-style: preserve-3d;">
+      <a href="project-aihr.html" class="block overflow-hidden mb-4 h-[240px] sm:h-[320px] lg:h-[420px]" style="transform-style: preserve-3d;">
         <img
           src="https://cdn.prod.website-files.com/630646ab81dae48583ebe181/686244ff6ba127b9f02f1573_resource%20library%20mockup.png"
           alt="Resource Library Redesign — AIHR"
-          class="w-full h-full object-cover hover:scale-[1.03] transition-transform duration-500 ease-in-out"
+          class="w-full h-full object-contain hover:scale-[1.03] transition-transform duration-500 ease-in-out"
         >
       </a>
       <p class="text-[14px] text-[#666]">UX Design · Product Design</p>
       <a href="project-aihr.html" class="text-[20px] lg:text-[24px] font-normal text-black leading-[36px] block hover:text-accent transition-colors">Resource Library Redesign</a>
       <p class="text-[14px] text-[#666]">AIHR · 2024</p>
+    </div>
+
+    <!-- Project 3: Reel 2022 -->
+    <div class="flex-1">
+      <a href="project-reel2022.html" class="flex items-center justify-center mb-4 h-[240px] sm:h-[320px] lg:h-[420px] overflow-hidden">
+        <!-- CSS tablet mockup -->
+        <div style="
+          position: relative;
+          width: 90%;
+          aspect-ratio: 16 / 9;
+          background: #111;
+          border-radius: 4%;
+          box-shadow: 0 0 0 3px #2a2a2a, 0 0 0 5px #111;
+          overflow: hidden;
+        ">
+          <video
+            id="reel-preview"
+            src="assets/reel 2022.mp4"
+            muted autoplay playsinline
+            style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;"
+          ></video>
+        </div>
+      </a>
+      <p class="text-[14px] text-[#666]">UX Design · UI Design · Motion</p>
+      <a href="project-reel2022.html" class="text-[20px] lg:text-[24px] font-normal text-black leading-[36px] block hover:text-accent transition-colors">Reel 2022</a>
+      <p class="text-[14px] text-[#666]">Rituals · 2022</p>
     </div>
 
   </section>
@@ -140,6 +166,16 @@
   </section>
 
   <script>
+    const reel = document.getElementById('reel-preview');
+    const REEL_START = 10, REEL_END = 18;
+    reel.addEventListener('loadedmetadata', () => {
+      reel.currentTime = REEL_START;
+      reel.playbackRate = 0.5;
+    });
+    reel.addEventListener('timeupdate', () => {
+      if (reel.currentTime >= REEL_END) reel.currentTime = REEL_START;
+    });
+
     const curtain = document.getElementById('intro-curtain');
     const lines = document.querySelectorAll('.anim-line');
 
