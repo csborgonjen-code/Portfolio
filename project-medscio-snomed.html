@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SNOMED Standardisation — Medscio · Chiel Borgonjen</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { garamond: ['"EB Garamond"', 'serif'] },
+          colors: { accent: '#659d89' }
+        }
+      }
+    }
+  </script>
+  <style>
+    p, li {
+      font-family: 'Inter', sans-serif !important;
+      font-weight: 300 !important;
+      line-height: 1.5 !important;
+      color: #666;
+      font-size: 16px;
+    }
+    p.garamond-500 {
+      font-family: 'EB Garamond', serif !important;
+      font-weight: 500 !important;
+    }
+    img {
+      mix-blend-mode: multiply;
+    }
+  </style>
+</head>
+<body class="bg-white font-garamond max-w-[1440px] mx-auto flex flex-col gap-12 lg:gap-20 pb-12 lg:pb-20">
+
+  <!-- Page Header -->
+  <div class="bg-[#f8f8f7] flex flex-col justify-center min-h-[280px] lg:min-h-[606px] px-6 sm:px-12 lg:px-40 py-16 lg:py-[110px] relative">
+    <a href="index.html" class="absolute left-6 sm:left-12 lg:left-40 top-6 lg:top-[53px] text-accent text-[16px] font-normal hover:opacity-70 transition-opacity" style="font-family: 'EB Garamond', serif;">Portfolio</a>
+    <p class="garamond-500 text-[36px] sm:text-[52px] lg:text-[74px] leading-tight lg:leading-[87px] text-accent">SNOMED Standardisation</p>
+    <p class="garamond-500 text-[36px] sm:text-[52px] lg:text-[74px] leading-tight lg:leading-[87px] text-black">Medscio</p>
+  </div>
+
+  <!-- Context and Role -->
+  <div class="flex flex-col sm:flex-row gap-8 lg:gap-20 items-start px-6 sm:px-12 lg:px-40">
+    <div class="flex-1 max-w-full lg:max-w-[700px]">
+      <p class="garamond-500 text-[20px] sm:text-[24px] lg:text-[28px] leading-[30px] sm:leading-[36px] lg:leading-[44px] text-[#333]">Translating one of healthcare's most complex data standards into a tool doctors can actually use on a Friday afternoon.</p>
+    </div>
+    <div class="w-full sm:w-[320px] flex flex-col gap-1">
+      <p><span class="font-medium text-[#444]">Status:</span> Design concept complete — ready for user testing</p>
+      <p><span class="font-medium text-[#444]">My role:</span> UX designer &amp; UI designer</p>
+      <p><span class="font-medium text-[#444]">Team:</span> Leon (clinical SNOMED expert), Michael &amp; Lucas (founders)</p>
+      <p class="mt-2">
+        <a href="https://github.com/Medscio/SNOMED-standardization-demo" class="text-accent hover:opacity-70 transition-opacity" style="font-family: 'Inter', sans-serif;">Working demo ↗</a>
+      </p>
+    </div>
+  </div>
+
+<!-- Before / After -->
+  <div class="px-6 sm:px-12 lg:px-40 flex flex-col gap-6 lg:gap-8">
+    <div class="flex flex-col sm:flex-row gap-8 lg:gap-10">
+      <div class="flex-1 flex flex-col gap-3">
+        <p class="text-[11px] uppercase tracking-[0.12em] text-[#999]" style="font-family: 'Inter', sans-serif !important; font-size: 11px !important; line-height: 1 !important;">Before</p>
+        <div class="overflow-hidden shadow-[0px_20px_30px_rgba(0,0,0,0.10)]">
+          <img src="assets/snomed/before.png" alt="Old SNOMED design" class="w-full h-auto" style="filter: grayscale(30%);">
+        </div>
+        <p>First SNOMED screen: no clear path through the three decision branches.</p>
+      </div>
+      <div class="flex-1 flex flex-col gap-3">
+        <p class="text-[11px] uppercase tracking-[0.12em] text-[#999]" style="font-family: 'Inter', sans-serif !important; font-size: 11px !important; line-height: 1 !important;">After</p>
+        <div class="overflow-hidden shadow-[0px_20px_30px_rgba(0,0,0,0.10)]">
+          <img src="assets/snomed/after.png" alt="New SNOMED design" class="w-full h-auto">
+        </div>
+        <p>Improved visual hierarchy, and added three numbered steps to take the doktors by the hand though complex SNOMED standardisation</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Challenge -->
+  <div class="px-6 sm:px-12 lg:px-40 flex flex-col gap-4">
+    <h2 class="text-[28px] sm:text-[36px] lg:text-[48px] font-medium text-black leading-tight">The challenge</h2>
+    <div class="text-[16px] font-medium text-[#666] leading-[26px] space-y-4 max-w-full lg:max-w-[860px]">
+      <p>Full hospital data standardisation requires three components: LOINC (what you measure), SNOMED (how you measure it), and UCUM (the unit). Without SNOMED, standardisation is incomplete.</p>
+      <p>SNOMED is a multi hierarchical ontology, every clinical concept has parents, children, siblings, and attributes. When two hospitals compare lab values, SNOMED ensures you know <em>why</em> values differ, even if they're not identical. </p>
+      <p>The primary user is a clinical chemist, someone who likely standardises LOINC codes in the same workflow.</p>
+    </div>
+  </div>
+
+  <!-- Callout — core design tension -->
+  <div class="px-6 sm:px-12 lg:px-40">
+    <div class="px-8 py-10 lg:px-16 lg:py-14 flex flex-col lg:flex-row gap-8 lg:gap-20 items-start lg:items-center">
+      <p class="garamond-500 text-[20px] sm:text-[24px] lg:text-[28px] leading-[32px] sm:leading-[36px] lg:leading-[44px] text-[#333] italic flex-1">"How do you turn something this complex into something a doctor can grasp at 4pm on a friday?"</p>
+    </div>
+  </div>
+
+  <!-- Decision Tree — split -->
+  <div class="flex flex-col lg:flex-row gap-10 lg:gap-20 items-start px-6 sm:px-12 lg:px-40">
+    <div class="bg-[#f8f8f7] w-full lg:flex-1 p-6 lg:p-10 flex flex-col gap-4">
+      <img src="assets/snomed/decision tree.png" alt="SNOMED decision tree" class="max-h-[440px] w-auto max-w-full mx-auto block">
+      <p class="text-[16px] font-medium text-[#666] leading-[26px] text-center">The underlying SNOMED decision tree, mapping a hospital term can branch into exact matches, attribute refinements, or multiple separate concepts</p>
+    </div>
+    <div class="w-full lg:w-[345px] flex flex-col gap-4">
+      <h3 class="text-[20px] lg:text-[24px] font-medium text-[#333] leading-[36px]">Understanding the decision tree</h3>
+      <div class="text-[16px] font-medium text-[#666] leading-[26px] space-y-3">
+        <p>Together with Leon (clinical expert), I mapped out the full decision logic a clinical chemist goes through when mapping a hospital term to SNOMED.</p>
+        <p>The core branching logic:</p>
+        <ul class="list-disc ml-6 space-y-1">
+          <li><span class="font-medium text-[#444]">Exact match?</span> → done. ~80% of parameters.</li>
+          <li><span class="font-medium text-[#444]">Not specific enough?</span> → refine or add an attribute (Step 2)</li>
+          <li><span class="font-medium text-[#444]">Multiple separate concepts?</span> → add an extra term (Step 3)</li>
+        </ul>
+        <p>This decision tree became the structural backbone of the interface: three steps, in order.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Three steps -->
+  <div class="px-6 sm:px-12 lg:px-40 flex flex-col gap-8 lg:gap-12">
+    <h2 class="text-[28px] sm:text-[36px] lg:text-[48px] font-medium text-black leading-tight">Three steps, in the right order</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-16">
+
+      <div class="flex flex-col gap-3">
+        <p class="text-[80px] leading-none text-[#333] opacity-10 font-medium" style="font-family: 'EB Garamond', serif !important;">1</p>
+        <h4 class="text-[20px] lg:text-[22px] font-medium text-[#333] leading-snug" style="font-family: 'EB Garamond', serif;">Choose a term</h4>
+        <p>The most critical step, handling ~80% of all parameters. AI suggestions appear immediately, with a search bar for manual lookup of the full SNOMED database. Once a term is selected, parents and children are shown so the user can navigate the hierarchy and confirm the right level of specificity.</p>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="text-[80px] leading-none text-[#333] opacity-10 font-medium" style="font-family: 'EB Garamond', serif !important;">2</p>
+        <h4 class="text-[20px] lg:text-[22px] font-medium text-[#333] leading-snug" style="font-family: 'EB Garamond', serif;">Adjust attributes</h4>
+        <p>For the remaining cases where the standard term isn't specific enough: attributes provide extra context that refines the term precisely. This step maps directly to the "refine attribute" branch of the decision tree. It's an advanced step and requires SNOMED knowledge.</p>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="text-[80px] leading-none text-[#333] opacity-10 font-medium" style="font-family: 'EB Garamond', serif !important;">3</p>
+        <h4 class="text-[20px] lg:text-[22px] font-medium text-[#333] leading-snug" style="font-family: 'EB Garamond', serif;">Add an extra term</h4>
+        <p>Some parameters consist of multiple separate concepts. Step 3 maps to the "multiple SNOMED concepts" branch of the decision tree, letting the user attach additional terms to a single hospital parameter without losing accuracy.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Step 1 + Step 2 screens -->
+  <div class="px-6 sm:px-12 lg:px-40 flex flex-col sm:flex-row gap-6 lg:gap-10">
+    <div class="flex-1 flex flex-col gap-3">
+      <p class="text-[11px] uppercase tracking-[0.12em] text-[#999]" style="font-family: 'Inter', sans-serif !important; font-size: 11px !important; line-height: 1 !important;">Step 1 — Choose a term</p>
+      <div class="overflow-hidden shadow-[0px_20px_30px_rgba(0,0,0,0.10)]">
+        <img src="assets/snomed/After click.png" alt="Step 1 — choose a term" class="w-full h-auto">
+      </div>
+    </div>
+    <div class="flex-1 flex flex-col gap-3">
+      <p class="text-[11px] uppercase tracking-[0.12em] text-[#999]" style="font-family: 'Inter', sans-serif !important; font-size: 11px !important; line-height: 1 !important;">Step 2 — Adjust attributes</p>
+      <div class="overflow-hidden shadow-[0px_20px_30px_rgba(0,0,0,0.10)]">
+        <img src="assets/snomed/edit attributes.png" alt="Step 2 — edit attributes" class="w-full h-auto">
+      </div>
+    </div>
+  </div>
+
+  <!-- Full Image — final design annotated -->
+  <div class="bg-[#f8f8f7] px-6 sm:px-12 lg:px-40 py-10 lg:py-20 flex flex-col gap-6 lg:gap-10 items-center">
+    <img src="assets/snomed/selected term.png" alt="SNOMED interface — final design" class="w-full h-auto shadow-[0px_20px_40px_rgba(0,0,0,0.12)]">
+    <p class="text-[16px] font-medium text-[#666] leading-[26px] text-center">The redesigned SNOMED browser: numbered steps, AI suggestions, hierarchy navigation, and attribute editing in a single focused view</p>
+  </div>
+
+  
+
+  <!-- Working Prototype — split -->
+  <div class="flex flex-col-reverse lg:flex-row gap-10 lg:gap-20 items-start lg:items-center px-6 sm:px-12 lg:px-40">
+    <div class="w-full lg:w-[345px] flex flex-col gap-4">
+      <h3 class="text-[20px] lg:text-[24px] font-medium text-[#333] leading-[36px]">A working prototype, not a static mockup</h3>
+      <div class="text-[16px] font-medium text-[#666] leading-[26px] space-y-3">
+        <p>Without real search results and basic SNOMED knowledge, the screen is untestable. A static prototype wouldn't cut it.</p>
+        <p>So I built a fully working demo using Claude Code, connected to a Typesense backend containing the complete SNOMED database. You can search any SNOMED term, navigate the full hierarchy, and simulate a realistic standardisation workflow.</p>
+        <p>This makes the upcoming user test with clinical chemists and microbiologists more meaningful than any clickthrough prototype could be.</p>
+        <a href="https://github.com/Medscio/SNOMED-standardization-demo" class="text-accent hover:opacity-70 transition-opacity inline-block" style="font-family: 'Inter', sans-serif; font-weight: 300;">Working demo on GitHub ↗</a>
+      </div>
+    </div>
+    <div class="bg-[#f8f8f7] w-full lg:flex-1 p-6 lg:p-10 flex flex-col gap-4">
+      <div class="mx-auto" style="width: min(100%, 560px);">
+        <div style="
+          border-radius: 18px;
+          box-shadow: 0 0 0 2px #1c1c1e, 0 0 0 5px #2a2a2a, 0 24px 60px rgba(0,0,0,0.25);
+          overflow: hidden;
+        ">
+          <video src="assets/snomed/Demo html.mov" autoplay loop muted playsinline
+            style="width: 100%; height: auto; display: block;">
+          </video>
+        </div>
+      </div>
+      <p class="text-[16px] font-medium text-[#666] leading-[26px] text-center">The demo connects directly to the SNOMED database via Typesense, realistic enough to test with real clinical users</p>
+    </div>
+  </div>
+
+  <!-- Key Design Decisions -->
+  <div class="px-6 sm:px-12 lg:px-40 flex flex-col gap-4">
+    <h2 class="text-[28px] sm:text-[36px] lg:text-[48px] font-medium text-black leading-tight">Key design decisions</h2>
+    <div class="text-[16px] font-medium text-[#666] leading-[26px] space-y-4 max-w-full lg:max-w-[860px]">
+      <p><span class="font-medium text-[#444]">Built on the LOINC pattern.</span> The SNOMED screen inherits the layout structure from the LOINC standardisation screen. The same table on top, the same panel on the right. LOINC had already been tested with users and validated. Repeating those patterns meant clinical chemists could recognise the context immediately, even when the content is new.</p>
+      <p><span class="font-medium text-[#444]">Numbers as wayfinding.</span> The three-step numbering directly mirrors the decision tree. A user who doesn't need step 2 or 3 can ignore them. We expect that ~80% of the data can be standardized with step 1 alone.</p>
+      <p><span class="font-medium text-[#444]">AI suggestions reduce cognitive load at the hardest moment.</span> Step 1 choosing the right term is where the most critical errors happen. AI suggestions surface the most likely match immediately, so the clinical chemist validates rather than searches. The hierarchy view (parents, children, siblings) then lets them confirm or navigate to something more or less specific.</p>
+      <p><span class="font-medium text-[#444]">~80% of cases, one step.</span> The design is explicitly optimised for the majority case: find the right term in step 1, click Standardize, move on. The interface doesn't ask doctors to think about attributes or multi-term expressions until they actually need to.</p>
+    </div>
+  </div>
+
+  <!-- Status and Next Steps -->
+  <div class="px-6 sm:px-12 lg:px-40 flex flex-col gap-4">
+    <h2 class="text-[28px] sm:text-[36px] lg:text-[48px] font-medium text-black leading-tight">Status and reflection</h2>
+    <div class="text-[16px] font-medium text-[#666] leading-[26px] space-y-4 max-w-full lg:max-w-[860px]">
+      <p>The design is currently at about 60%. The concept is complete and the working demo is ready for testing. The first user test with known clinical chemists or microbiologists is the next step</p>
+      <p><span class="font-medium text-[#444]">Reflection:</span> The biggest design challenge wasn't the interface, it was resisting the urge to present the end user with the full complexity of SNOMED. Every time I could simplify a decision, the screen got better. The interface should feel like three clear questions.</p>
+    </div>
+  </div>
+
+</body>
+</html>
