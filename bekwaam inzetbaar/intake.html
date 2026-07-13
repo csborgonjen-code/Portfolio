@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regionaal inzetbaarheidskompas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6ece1;
+      --card: #FFFFFF;
+      --pink: #eb008b;
+      --navy: #0038b8;
+      --text: #0b1742;
+      --text-muted: #7B7490;
+      --border: #E2D9D0;
+      --divider: #EDE5DE;
+
+      /* design tokens */
+      --Colors__sand: #f6ece1;
+      --Colors__lightpink: #f8b9d8;
+      --Colors__lightblue: #77a5f3;
+      --Colors__lightgreen: #57d5c7;
+      --Colors__pink: #eb008b;
+      --Colors__blue: #0038b8;
+      --Colors__Green: #118175;
+      --Colors__brown: #640934;
+      --Colors__black: #0b1742;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 22px;
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px 64px;
+    }
+
+    .screen { display: none; width: 100%; max-width: 600px; }
+    .screen.active { display: block; }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 40px;
+    }
+
+    /* ── WELKOM ── */
+    .welkom-card {
+      text-align: center;
+      padding: 76px 40px;
+    }
+    .compass-wrap {
+      width: 86px;
+      height: 86px;
+      background: #fff;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 32px;
+    }
+    .welkom-card h1 {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 36px;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .welkom-card .subtitle {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 26px;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+    .welkom-card .btn-link {
+      display: block;
+      margin-top: 18px;
+      color: var(--text);
+      font-size: 14px;
+      text-decoration: underline;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    /* ── STEPPER ── */
+    .intake-meta {
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+    .stepper {
+      margin-bottom: 32px;
+    }
+    .stepper-track {
+      height: 3px;
+      background: var(--divider);
+      border-radius: 2px;
+      margin-bottom: 8px;
+      position: relative;
+    }
+    .stepper-fill {
+      height: 100%;
+      background: var(--pink);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+    .stepper-label {
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      color: var(--pink);
+    }
+
+    /* ── TYPOGRAPHY ── */
+    .card h2 {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 36px;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .card .subtitle {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 26px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .category-label {
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 16px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    /* ── FORM ── */
+    .form-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .form-group {
+      flex: 1;
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text);
+      background: #fff;
+      outline: none;
+      appearance: none;
+      transition: border-color 0.15s;
+    }
+    .form-group input::placeholder { color: #C4BCD4; }
+    .form-group input:focus,
+    .form-group select:focus { border-color: var(--pink); }
+    .select-wrap { position: relative; }
+    .select-wrap select { padding-right: 40px; }
+    .select-wrap::after {
+      content: '';
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 10px;
+      height: 6px;
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%237B7490' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      pointer-events: none;
+    }
+    .search-field-wrap { position: relative; }
+    .search-field-wrap input { padding-left: 40px; }
+    .search-field-wrap .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+
+    .add-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--pink);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      background: none;
+      padding: 0;
+      margin-top: -4px;
+      margin-bottom: 16px;
+    }
+    .add-link:hover { text-decoration: underline; }
+
+    .note-text {
+      font-size: 13px;
+      color: var(--pink);
+      line-height: 1.5;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: var(--divider);
+      margin: 24px 0;
+    }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--pink);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 22px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      color: var(--text);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 13px 22px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 22px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .btn-secondary:hover { border-color: var(--text-muted); }
+    .btn-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .btn-row.single { justify-content: flex-start; }
+
+    /* ── SKILLS / PILLS ── */
+    .skill-block {
+      margin-bottom: 20px;
+    }
+    .skill-name {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 22px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .pill {
+      padding: 6px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      background: #fff;
+      user-select: none;
+      transition: all 0.15s;
+      position: relative;
+    }
+    .pill:hover { border-color: var(--pink); color: var(--pink); }
+    .pill.selected { background: var(--pink); border-color: var(--pink); color: #fff; }
+    .pill.selected.verified { background: #57d5c7; border-color: #57d5c7; color: #0d3d38; }
+    .skill-source {
+      font-size: 12px;
+      font-style: italic;
+      color: #118175;
+      margin-top: 6px;
+    }
+
+    /* Tooltip */
+    .pill[data-tooltip]:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1A1335;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 400;
+      padding: 8px 12px;
+      border-radius: 8px;
+      white-space: nowrap;
+      max-width: 220px;
+      white-space: normal;
+      text-align: center;
+      width: 200px;
+      z-index: 10;
+      line-height: 1.4;
+    }
+    .pill[data-tooltip]:hover::before {
+      content: '';
+      position: absolute;
+      bottom: calc(100% + 2px);
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #1A1335;
+      z-index: 10;
+    }
+
+    /* ── SAMENVATTING ── */
+    .person-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .avatar {
+      width: 36px;
+      height: 36px;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .person-name { font-size: 20px; font-weight: 400; line-height: 28px; color: var(--text); }
+    .person-role { font-size: 13px; color: var(--text-muted); }
+
+    .stats-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .stat-box {
+      flex: 1;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 16px;
+    }
+    .stat-number { font-size: 40px; font-weight: 700; line-height: 48px; color: var(--text); }
+    .stat-label { font-size: 12px; font-weight: 500; line-height: 18px; color: var(--text-muted); margin-top: 4px; }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 16px;
+      margin-bottom: 16px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text);
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .legend-dot.diploma { background: #009E8C; }
+    .legend-dot.zelf { background: var(--pink); }
+    .legend-dot.lerend { background: #E07840; }
+    .legend-dot.niet { background: var(--border); border: 1.5px solid #C4BCD4; }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--divider);
+    }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-skill-name { font-size: 14px; font-weight: 400; line-height: 22px; color: var(--text); flex: 1; padding-right: 12px; }
+    .summary-pill {
+      padding: 5px 14px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      background: #fff;
+      color: #118175;
+      border: 1.5px solid #118175;
+    }
+    .summary-pill.verified {
+      background: #57d5c7;
+      border-color: #57d5c7;
+      color: #0d3d38;
+    }
+    .summary-pill.level-0 {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-style: italic;
+      font-weight: 400;
+      padding: 0;
+    }
+
+    /* ── KOMPAS ── */
+    .kompas-header {
+      margin-bottom: 32px;
+    }
+    .kompas-header h2 {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 36px;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .kompas-header p { font-size: 16px; font-weight: 300; line-height: 26px; color: var(--text-muted); }
+
+    .kompas-col-headers {
+      display: flex;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--divider);
+      margin-bottom: 12px;
+    }
+    .kompas-skill-col { flex: 1; }
+    .kompas-level-cols {
+      display: grid;
+      grid-template-columns: repeat(4, 64px);
+      gap: 0;
+    }
+    .kompas-col-head {
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 16px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .kompas-row {
+      display: flex;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--divider);
+    }
+    .kompas-row:last-child { border-bottom: none; }
+    .kompas-row-name {
+      flex: 1;
+      font-size: 12px;
+      color: var(--text);
+      padding-right: 8px;
+    }
+    .kompas-dots {
+      display: grid;
+      grid-template-columns: repeat(4, 64px);
+    }
+    .kompas-dot-cell {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .k-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 99px;
+      background: #e2e2df;
+      border: 1.5px solid #e2e2df;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .k-dot.pending {
+      background: #fff;
+      border: 1px solid #118175;
+    }
+    .k-dot.verified {
+      background: #57d5c7;
+      border-color: #57d5c7;
+    }
+    .k-dot.doelfunctie {
+      background: #fff;
+      border: 1.5px dashed #0038b8;
+    }
+
+    .kompas-category {
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 16px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 16px 0 8px;
+    }
+
+    .kompas-legend {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--divider);
+    }
+
+    .btn-tijdreizen {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--Colors__blue);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 13px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .btn-tijdreizen:hover { opacity: 0.9; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     SCREEN 1: WELKOM
+═══════════════════════════════════════════ -->
+<div id="s-welkom" class="screen active">
+  <div class="card welkom-card">
+    <div class="compass-wrap">
+      <svg width="62" height="62" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_115_2535)">
+          <path opacity="0.2" d="M60.0625 31L36.8125 36.8125L31 60.0625L25.1875 36.8125L1.9375 31L25.1875 25.1875L31 1.9375L36.8125 25.1875L60.0625 31Z" fill="#0038B8"/>
+          <path d="M60.5318 29.1205L53.9806 27.4833C53.2365 22.587 50.9462 18.057 47.4443 14.5551C43.9423 11.0531 39.4123 8.76279 34.516 8.01873L32.8788 1.47967C32.7738 1.06073 32.5318 0.68888 32.1913 0.423186C31.8508 0.157491 31.4313 0.0131836 30.9994 0.0131836C30.5675 0.0131836 30.148 0.157491 29.8075 0.423186C29.467 0.68888 29.225 1.06073 29.12 1.47967L27.4829 8.03084C22.5866 8.7749 18.0565 11.0652 14.5546 14.5672C11.0526 18.0691 8.7623 22.5992 8.01824 27.4954L1.47918 29.1326C1.06024 29.2376 0.688392 29.4796 0.422697 29.8201C0.157003 30.1606 0.0126953 30.5801 0.0126953 31.012C0.0126953 31.4439 0.157003 31.8634 0.422697 32.2039C0.688392 32.5444 1.06024 32.7864 1.47918 32.8914L8.03035 34.5286C8.77441 39.4249 11.0647 43.9549 14.5667 47.4569C18.0686 50.9588 22.5987 53.2491 27.495 53.9932L29.1321 60.5444C29.2371 60.9633 29.4791 61.3351 29.8196 61.6008C30.1601 61.8665 30.5796 62.0108 31.0115 62.0108C31.4434 62.0108 31.8629 61.8665 32.2034 61.6008C32.5439 61.3351 32.7859 60.9633 32.8909 60.5444L34.5281 53.9932C39.4244 53.2491 43.9544 50.9588 47.4564 47.4569C50.9583 43.9549 53.2486 39.4249 53.9927 34.5286L60.5439 32.8914C60.9628 32.7864 61.3347 32.5444 61.6003 32.2039C61.866 31.8634 62.0103 31.4439 62.0103 31.012C62.0103 30.5801 61.866 30.1606 61.6003 29.8201C61.3347 29.4796 60.9628 29.2376 60.5439 29.1326L60.5318 29.1205ZM37.4053 34.6666L33.7386 30.9999L37.4053 27.3332L52.0697 30.9999L37.4053 34.6666ZM24.5936 34.6666L9.9291 30.9999L24.5984 27.3332L28.2603 30.9999L24.5936 34.6666ZM49.8343 26.4468L38.4104 23.589L35.5525 12.165C39.0176 12.999 42.185 14.774 44.7052 17.2941C47.2253 19.8143 49.0003 22.9817 49.8343 26.4468ZM34.6661 24.594L30.9994 28.2608L27.3327 24.594L30.9994 9.92959L34.6661 24.594ZM26.4463 12.165L23.5885 23.589L12.1645 26.4468C12.9985 22.9817 14.7735 19.8143 17.2937 17.2941C19.8138 14.774 22.9812 12.999 26.4463 12.165ZM12.1572 35.553L23.5885 38.4108L26.4463 49.8348C22.9812 49.0008 19.8138 47.2258 17.2937 44.7057C14.7735 42.1855 12.9985 39.0181 12.1645 35.553H12.1572ZM27.3254 37.4058L30.9994 33.739L34.6661 37.4058L30.9994 52.0702L27.3254 37.4058ZM35.5453 49.8348L38.4031 38.4108L49.8271 35.553C48.9936 39.0172 47.2197 42.1839 44.7009 44.704C42.1821 47.2241 39.0163 48.9996 35.5525 49.8348H35.5453Z" fill="#0038B8"/>
+        </g>
+        <defs>
+          <clipPath id="clip0_115_2535"><rect width="62" height="62" fill="white"/></clipPath>
+        </defs>
+      </svg>
+    </div>
+    <h1>Regionaal inzetbaarheidskompas</h1>
+    <p class="subtitle">Van binnenkomen tot doorgroeien</p>
+    <button class="btn-primary" onclick="goTo('s-wie')">Begin &nbsp;→</button>
+    <button class="btn-link" onclick="buildFatima(); goTo('s-fatima')">Open bestaand profiel</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCREEN 2: WIE KOMT ER BINNEN
+═══════════════════════════════════════════ -->
+<div id="s-wie" class="screen">
+  <div class="card">
+    <div class="intake-meta">Nieuwe medewerker — intake</div>
+    <div class="stepper">
+      <div class="stepper-track"><div class="stepper-fill" style="width:20%"></div></div>
+      <div class="stepper-label">Stap 1/5 &nbsp;— &nbsp;Persoonsgegevens</div>
+    </div>
+    <h2>Wie komt er binnen?</h2>
+    <p class="subtitle">Vul de basisgegevens in om het profiel aan te maken.</p>
+
+    <div class="form-row">
+      <div class="form-group" style="margin-bottom:0">
+        <label>Voornaam</label>
+        <input type="text" id="inp-voornaam" placeholder="Placeholder">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label>Achternaam</label>
+        <input type="text" id="inp-achternaam" placeholder="Placeholder">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Achtergrond</label>
+      <div class="select-wrap">
+        <select id="inp-achtergrond">
+          <option value="" disabled selected>Selecteer type instroom</option>
+          <option>Zij-instromer (geen zorgachtergrond)</option>
+          <option>Instromer vanuit andere zorgorganisatie</option>
+          <option>Herintreder (eerder in de zorg)</option>
+          <option>BBL/BOL student</option>
+          <option>Nieuw afgestudeerd</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Locatie / team</label>
+      <input type="text" id="inp-locatie" placeholder="Placeholder">
+    </div>
+
+    <div class="divider"></div>
+    <div class="btn-row single">
+      <button class="btn-primary" onclick="saveWie(); goTo('s-diplomas')">Verder &nbsp;→</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCREEN 3: DIPLOMA'S
+═══════════════════════════════════════════ -->
+<div id="s-diplomas" class="screen">
+  <div class="card">
+    <div class="intake-meta">Nieuwe medewerker — intake</div>
+    <div class="stepper">
+      <div class="stepper-track"><div class="stepper-fill" style="width:40%"></div></div>
+      <div class="stepper-label">Stap 2/5 &nbsp;— &nbsp;Diploma's</div>
+    </div>
+    <h2 id="h-diplomas">Welke diploma's heeft Sara?</h2>
+    <p class="subtitle">Vul in welke opleidingen zijn afgerond of bezig.</p>
+
+    <div class="divider" style="margin-top:0"></div>
+
+    <div class="form-group">
+      <label>Diploma's</label>
+      <div class="search-field-wrap">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <circle cx="6.5" cy="6.5" r="5" stroke="#7B7490" stroke-width="1.5"/>
+          <path d="M10.5 10.5L14 14" stroke="#7B7490" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <input type="text" id="inp-diploma" placeholder="Zoek een diploma">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group" style="margin-bottom:0">
+        <label>Instelling</label>
+        <input type="text" id="inp-instelling" placeholder="bv. ROC Tilburg">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label>Jaar behaald</label>
+        <input type="text" id="inp-jaar" placeholder="bv. 2019">
+      </div>
+    </div>
+    <button class="add-link">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M7 1v12M1 7h12" stroke="#E5097F" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      Voeg nog een diploma toe
+    </button>
+
+    <div class="divider"></div>
+
+    <div class="form-group">
+      <label>Lopende opleidingen</label>
+      <div class="search-field-wrap">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <circle cx="6.5" cy="6.5" r="5" stroke="#7B7490" stroke-width="1.5"/>
+          <path d="M10.5 10.5L14 14" stroke="#7B7490" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <input type="text" id="inp-lopend" placeholder="Zoek een opleiding">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Verwacht afstudeerjaar</label>
+      <input type="text" id="inp-afstudeerjaar" placeholder="bv. 2019">
+    </div>
+
+    <div class="divider"></div>
+    <p class="note-text" style="margin-bottom:24px">
+      Geen opleiding? Geen probleem, competenties worden op de werkvloer vastgesteld.
+    </p>
+    <div class="btn-row single">
+      <button class="btn-primary" onclick="nextFromDiplomas()">Verder &nbsp;→</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCREEN FATIMA: GROEIPAD (Stap 3/3)
+═══════════════════════════════════════════ -->
+<div id="s-fatima-groeipad" class="screen">
+  <div class="card">
+    <div class="intake-meta">Nieuwe medewerker — intake</div>
+    <div class="stepper">
+      <div class="stepper-track"><div class="stepper-fill" style="width:100%"></div></div>
+      <div class="stepper-label">Stap 3/3 &nbsp;— &nbsp;Groeipad</div>
+    </div>
+    <h2>Wat is het groeipad voor <span id="h-groeipad-naam">Fatima</span>?</h2>
+
+    <div class="divider" style="margin-top:0"></div>
+    <p class="subtitle" style="color:rgba(100,9,52,0.65);font-weight:300">Huidige functie</p>
+
+    <div class="form-group">
+      <label>Huidige functie</label>
+      <div class="select-wrap">
+        <select id="inp-huidige-functie">
+          <option>Zorgondersteuner</option>
+          <option>Helpende</option>
+          <option>Helpende plus</option>
+          <option>Verzorgende IG</option>
+          <option>Verpleegkundige</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group" style="margin-bottom:0">
+        <label>Huidige organisatie</label>
+        <input type="text" id="inp-huidige-org" placeholder="bv Savogram">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label>Afdeling</label>
+        <input type="text" id="inp-afdeling" placeholder="bv Palliatieve zorg">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Aantal jaar ervaring</label>
+      <input type="text" id="inp-ervaring" placeholder="bv. 3">
+    </div>
+
+    <div class="divider"></div>
+    <p class="subtitle" style="color:rgba(100,9,52,0.65);font-weight:300">Welke ambities heeft <span class="groeipad-voornaam">Fatima</span></p>
+
+    <div class="form-group">
+      <label>Doelfunctie</label>
+      <div class="select-wrap">
+        <select id="inp-doelfunctie">
+          <option>Helpende plus</option>
+          <option>Verzorgende IG</option>
+          <option>Verpleegkundige</option>
+          <option>Teamleider zorg</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="btn-row single">
+      <button class="btn-primary" onclick="saveGroeipad(); buildFatima(); goTo('s-fatima')">Verder &nbsp;→</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCREEN 4: VAARDIGHEDEN 01 — KWALITEIT VAN LEVEN
+═══════════════════════════════════════════ -->
+<div id="s-vaard-01" class="screen">
+  <div class="card">
+    <div class="stepper">
+      <div class="stepper-track"><div class="stepper-fill" style="width:60%"></div></div>
+      <div class="stepper-label">Stap 3/5 &nbsp;— &nbsp;Vaardigheden</div>
+    </div>
+    <h2 id="h-vaard-01">Wat kan Sara nog meer?</h2>
+    <p class="subtitle">Kies per vaardigheid het hoogste niveau dat iemand zelfstandig aantoont.</p>
+
+    <div class="divider" style="margin-top:0"></div>
+    <div class="category-label">Kwaliteit van leven</div>
+
+    <div id="pills-kwaliteit"></div>
+
+    <div class="divider"></div>
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goTo('s-diplomas')">← &nbsp;terug</button>
+      <button class="btn-primary" onclick="goTo('s-vaard-02')">Verder &nbsp;→</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCREEN 5: VAARDIGHEDEN 02 — SAMEN BESLISSEN
+═══════════════════════════════════════════ -->
+<div id="s-vaard-02" class="screen">
+  <div class="card">
+    <div class="stepper">
+      <div class="stepper-track"><div class="stepper-fill" style="width:60%"></div></div>
+      <div class="stepper-label">Stap 3/5 &nbsp;— &nbsp;Vaardigheden</div>
+    </div>
+    <h2 id="h-vaard-02">Wat kan Sara nog meer?</h2>
+    <p class="subtitle">Kies per vaardigheid het hoogste niveau dat iemand zelfstandig aantoont.</p>
+
+    <div class="divider" style="margin-top:0"></div>
+    <div class="category-label">Samen beslissen</div>
+
+    <div id="pills-samen"></div>
+
+    <div class="divider"></div>
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goTo('s-vaard-01')">← &nbsp;terug</button>
+      <button class="btn-primary" onclick="goTo('s-vaard-03')">Verder &nbsp;→</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCREEN 6: VAARDIGHEDEN 03 — ZORGINHOUD
+═══════════════════════════════════════════ -->
+<div id="s-vaard-03" class="screen">
+  <div class="card">
+    <div class="stepper">
+      <div class="stepper-track"><div class="stepper-fill" style="width:60%"></div></div>
+      <div class="stepper-label">Stap 3/5 &nbsp;— &nbsp;Vaardigheden</div>
+    </div>
+    <h2 id="h-vaard-03">Wat kan Sara nog meer?</h2>
+    <p class="subtitle">Kies per vaardigheid het hoogste niveau dat iemand zelfstandig aantoont.</p>
+
+    <div class="divider" style="margin-top:0"></div>
+    <div class="category-label">Zorginhoud &amp; professioneel handelen</div>
+
+    <div id="pills-zorg"></div>
+
+    <div class="divider"></div>
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goTo('s-vaard-02')">← &nbsp;terug</button>
+      <button class="btn-primary" onclick="goTo('s-vaard-04')">Verder &nbsp;→</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCREEN 7: VAARDIGHEDEN 04 — SPECIALE AANDOENINGEN + DIGITALISERING
+═══════════════════════════════════════════ -->
+<div id="s-vaard-04" class="screen">
+  <div class="card">
+    <div class="stepper">
+      <div class="stepper-track"><div class="stepper-fill" style="width:80%"></div></div>
+      <div class="stepper-label">Stap 4/5 &nbsp;— &nbsp;Vaardigheden</div>
+    </div>
+    <h2>Vaardigheden</h2>
+    <p class="subtitle">Kies per vaardigheid het hoogste niveau dat iemand zelfstandig aantoont.</p>
+
+    <div class="divider" style="margin-top:0"></div>
+    <div class="category-label">Speciale aandoeningen</div>
+    <div id="pills-speciaal"></div>
+
+    <div class="divider"></div>
+    <div class="category-label">Digitalisering, professionaliteit &amp; duurzame inzet</div>
+    <div id="pills-digitaal"></div>
+
+    <div class="divider"></div>
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goTo('s-vaard-03')">← &nbsp;terug</button>
+      <button class="btn-primary" onclick="buildSamenvatting(); goTo('s-samenvatting')">Verder &nbsp;→</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCREEN 8: SAMENVATTING
+═══════════════════════════════════════════ -->
+<div id="s-samenvatting" class="screen">
+  <div class="card">
+    <div class="stepper">
+      <div class="stepper-track"><div class="stepper-fill" style="width:100%"></div></div>
+      <div class="stepper-label">Stap 5/5 &nbsp;— &nbsp;Overzicht</div>
+    </div>
+    <h2>Profiel overzicht</h2>
+    <p class="subtitle">Klaar om mee te starten op de werkvloer.</p>
+
+    <div class="person-row">
+      <div class="avatar" id="sam-avatar">SB</div>
+      <div>
+        <div class="person-name" id="sam-naam">Sara Bos</div>
+        <div class="person-role">Zij instromer</div>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-number" id="stat-diploma">0</div>
+        <div class="stat-label">Vaardigheden met diploma</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" id="stat-te-controleren">0</div>
+        <div class="stat-label">Zelf aangegeven vaardigheden</div>
+      </div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item">
+        <div class="k-dot verified" style="width:18px;height:18px;flex-shrink:0">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.354 4.85366L6.35403 12.8537C6.30759 12.9002 6.25245 12.937 6.19175 12.9622C6.13105 12.9874 6.06599 13.0003 6.00028 13.0003C5.93457 13.0003 5.86951 12.9874 5.80881 12.9622C5.74811 12.937 5.69296 12.9002 5.64653 12.8537L2.14653 9.35366C2.05271 9.25984 2 9.13259 2 8.99991C2 8.86723 2.05271 8.73998 2.14653 8.64616C2.24035 8.55234 2.3676 8.49963 2.50028 8.49963C2.63296 8.49963 2.76021 8.55234 2.85403 8.64616L6.00028 11.793L13.6465 4.14616C13.7403 4.05234 13.8676 3.99963 14.0003 3.99963C14.133 3.99963 14.2602 4.05234 14.354 4.14616C14.4478 4.23998 14.5006 4.36723 14.5006 4.49991C14.5006 4.63259 14.4478 4.75984 14.354 4.85366Z" fill="white"/></svg>
+        </div>
+        Diploma of certificaat behaald
+      </div>
+      <div class="legend-item">
+        <div class="k-dot pending" style="width:18px;height:18px;flex-shrink:0">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.75 8C8.75 8.14834 8.70601 8.29334 8.6236 8.41668C8.54119 8.54001 8.42406 8.63614 8.28701 8.69291C8.14997 8.74968 7.99917 8.76453 7.85368 8.73559C7.7082 8.70665 7.57456 8.63522 7.46967 8.53033C7.36478 8.42544 7.29335 8.2918 7.26441 8.14632C7.23547 8.00083 7.25033 7.85003 7.30709 7.71299C7.36386 7.57594 7.45999 7.45881 7.58332 7.3764C7.70666 7.29399 7.85166 7.25 8 7.25C8.19891 7.25 8.38968 7.32902 8.53033 7.46967C8.67098 7.61032 8.75 7.80109 8.75 8ZM12.25 7.25C12.1017 7.25 11.9567 7.29399 11.8333 7.3764C11.71 7.45881 11.6139 7.57594 11.5571 7.71299C11.5003 7.85003 11.4855 8.00083 11.5144 8.14632C11.5433 8.2918 11.6148 8.42544 11.7197 8.53033C11.8246 8.63522 11.9582 8.70665 12.1037 8.73559C12.2492 8.76453 12.4 8.74968 12.537 8.69291C12.6741 8.63614 12.7912 8.54001 12.8736 8.41668C12.956 8.29334 13 8.14834 13 8C13 7.80109 12.921 7.61032 12.7803 7.46967C12.6397 7.32902 12.4489 7.25 12.25 7.25ZM3.75 7.25C3.60166 7.25 3.45666 7.29399 3.33332 7.3764C3.20999 7.45881 3.11386 7.57594 3.05709 7.71299C3.00032 7.85003 2.98547 8.00083 3.01441 8.14632C3.04335 8.2918 3.11478 8.42544 3.21967 8.53033C3.32456 8.63522 3.4582 8.70665 3.60368 8.73559C3.74917 8.76453 3.89997 8.74968 4.03701 8.69291C4.17406 8.63614 4.29119 8.54001 4.3736 8.41668C4.45601 8.29334 4.5 8.14834 4.5 8C4.5 7.80109 4.42098 7.61032 4.28033 7.46967C4.13968 7.32902 3.94891 7.25 3.75 7.25Z" fill="#118175"/></svg>
+        </div>
+        Zelf aangegeven vaardigheid (bij binnenkomst)
+      </div>
+      <div class="legend-item" style="color:var(--text-muted);font-style:italic;font-size:12px">niet aanwezig</div>
+    </div>
+
+    <div class="divider" style="margin-top:0"></div>
+
+    <div id="sam-skills"></div>
+
+    <div class="divider"></div>
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goTo('s-vaard-04')">← &nbsp;Aanpassen</button>
+      <button class="btn-primary" onclick="buildKompas(); goTo('s-kompas')">Inladen inzetbaarheidskompas &nbsp;→</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCREEN 9: INZETBAARHEIDS KOMPAS
+═══════════════════════════════════════════ -->
+<div id="s-kompas" class="screen">
+  <div class="card">
+    <div class="kompas-header">
+      <h2>Inzetbaarheids kompas</h2>
+      <p>Vergelijk huidig profiel met de eisen van de functie</p>
+    </div>
+
+    <div class="person-row">
+      <div class="avatar" id="komp-avatar">SB</div>
+      <div>
+        <div class="person-name" id="komp-naam">Sara Bos</div>
+        <div class="person-role" style="font-size:12px;color:var(--text-muted)">Zij instromer &mdash; 1 week in dienst</div>
+      </div>
+    </div>
+
+    <div class="kompas-col-headers">
+      <div class="kompas-skill-col"></div>
+      <div class="kompas-level-cols">
+        <div class="kompas-col-head">Ondersteunen</div>
+        <div class="kompas-col-head">Assisteren</div>
+        <div class="kompas-col-head">Zelfstandig</div>
+        <div class="kompas-col-head">Cliënt coord.</div>
+      </div>
+    </div>
+
+    <div id="kompas-rows"></div>
+
+    <div class="kompas-legend">
+      <div class="legend-item">
+        <div class="k-dot verified">
+          <svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1.5 5L5 8.5L11.5 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        Diploma of certificaat behaald
+      </div>
+      <div class="legend-item">
+        <div class="k-dot pending">
+          <svg width="14" height="4" viewBox="0 0 14 4" fill="none"><circle cx="2" cy="2" r="2" fill="#118175"/><circle cx="7" cy="2" r="2" fill="#118175"/><circle cx="12" cy="2" r="2" fill="#118175"/></svg>
+        </div>
+        Zelf aangegeven vaardigheid (bij binnenkomst)
+      </div>
+      <div class="legend-item">
+        <div class="k-dot"></div>
+        niet aanwezig
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goTo('s-samenvatting')">← &nbsp;Terug naar overzicht</button>
+      <button class="btn-tijdreizen" onclick="buildKompas2M(); goTo('s-kompas-2m')">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 6v3l2 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M5.5 2.5L8 1l2.5 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Ga 2 maanden vooruit
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCREEN 10: KOMPAS — 2 MAANDEN LATER
+═══════════════════════════════════════════ -->
+<div id="s-kompas-2m" class="screen">
+  <div class="card">
+    <div class="kompas-header">
+      <h2>Inzetbaarheids kompas</h2>
+      <p style="color:rgba(100,9,52,0.6)">Vergelijk huidig profiel met de eisen van de functie</p>
+    </div>
+
+    <div class="person-row">
+      <div class="avatar" style="background:#f8b9d8;color:#640934">SB</div>
+      <div>
+        <div class="person-name">Sara Bos</div>
+        <div class="person-role" style="font-size:11px;color:#640934">Zij instromer &mdash; 2 maanden in dienst</div>
+      </div>
+    </div>
+
+    <div class="kompas-col-headers">
+      <div class="kompas-skill-col"></div>
+      <div class="kompas-level-cols">
+        <div class="kompas-col-head">Ondersteunen</div>
+        <div class="kompas-col-head">Assisteren</div>
+        <div class="kompas-col-head">Zelfstandig</div>
+        <div class="kompas-col-head">Cliënt coord.</div>
+      </div>
+    </div>
+
+    <div id="kompas-2m-rows"></div>
+
+    <div class="kompas-legend">
+      <div class="legend-item">
+        <div class="k-dot verified" style="width:18px;height:18px;flex-shrink:0">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14.354 4.85366L6.35403 12.8537C6.30759 12.9002 6.25245 12.937 6.19175 12.9622C6.13105 12.9874 6.06599 13.0003 6.00028 13.0003C5.93457 13.0003 5.86951 12.9874 5.80881 12.9622C5.74811 12.937 5.69296 12.9002 5.64653 12.8537L2.14653 9.35366C2.05271 9.25984 2 9.13259 2 8.99991C2 8.86723 2.05271 8.73998 2.14653 8.64616C2.24035 8.55234 2.3676 8.49963 2.50028 8.49963C2.63296 8.49963 2.76021 8.55234 2.85403 8.64616L6.00028 11.793L13.6465 4.14616C13.7403 4.05234 13.8676 3.99963 14.0003 3.99963C14.133 3.99963 14.2602 4.05234 14.354 4.14616C14.4478 4.23998 14.5006 4.36723 14.5006 4.49991C14.5006 4.63259 14.4478 4.75984 14.354 4.85366Z" fill="white"/></svg>
+        </div>
+        Diploma of certificaat behaald
+      </div>
+      <div class="legend-item">
+        <div class="k-dot pending" style="width:18px;height:18px;flex-shrink:0">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8.75 8C8.75 8.14834 8.70601 8.29334 8.6236 8.41668C8.54119 8.54001 8.42406 8.63614 8.28701 8.69291C8.14997 8.74968 7.99917 8.76453 7.85368 8.73559C7.7082 8.70665 7.57456 8.63522 7.46967 8.53033C7.36478 8.42544 7.29335 8.2918 7.26441 8.14632C7.23547 8.00083 7.25033 7.85003 7.30709 7.71299C7.36386 7.57594 7.45999 7.45881 7.58332 7.3764C7.70666 7.29399 7.85166 7.25 8 7.25C8.19891 7.25 8.38968 7.32902 8.53033 7.46967C8.67098 7.61032 8.75 7.80109 8.75 8ZM12.25 7.25C12.1017 7.25 11.9567 7.29399 11.8333 7.3764C11.71 7.45881 11.6139 7.57594 11.5571 7.71299C11.5003 7.85003 11.4855 8.00083 11.5144 8.14632C11.5433 8.2918 11.6148 8.42544 11.7197 8.53033C11.8246 8.63522 11.9582 8.70665 12.1037 8.73559C12.2492 8.76453 12.4 8.74968 12.537 8.69291C12.6741 8.63614 12.7912 8.54001 12.8736 8.41668C12.956 8.29334 13 8.14834 13 8C13 7.80109 12.921 7.61032 12.7803 7.46967C12.6397 7.32902 12.4489 7.25 12.25 7.25ZM3.75 7.25C3.60166 7.25 3.45666 7.29399 3.33332 7.3764C3.20999 7.45881 3.11386 7.57594 3.05709 7.71299C3.00032 7.85003 2.98547 8.00083 3.01441 8.14632C3.04335 8.2918 3.11478 8.42544 3.21967 8.53033C3.32456 8.63522 3.4582 8.70665 3.60368 8.73559C3.74917 8.76453 3.89997 8.74968 4.03701 8.69291C4.17406 8.63614 4.29119 8.54001 4.3736 8.41668C4.45601 8.29334 4.5 8.14834 4.5 8C4.5 7.80109 4.42098 7.61032 4.28033 7.46967C4.13968 7.32902 3.94891 7.25 3.75 7.25Z" fill="#118175"/></svg>
+        </div>
+        Zelf aangegeven vaardigheid (bij binnenkomst)
+      </div>
+      <div class="legend-item">
+        <div class="k-dot" style="width:18px;height:18px;flex-shrink:0"></div>
+        niet aanwezig
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="btn-row single">
+      <button class="btn-secondary" onclick="goTo('s-kompas')">← &nbsp;Terug naar dag 1</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCREEN 11b: FATIMA — DOELFUNCTIE & DIPLOMA'S BEWERKEN
+═══════════════════════════════════════════ -->
+<div id="s-fatima-diplomas" class="screen">
+  <div class="card">
+    <div class="intake-meta">Bestaand profiel — Fatima Yilmaz</div>
+    <div class="stepper">
+      <div class="stepper-track"><div class="stepper-fill" style="width:10%"></div></div>
+      <div class="stepper-label">Doelfunctie &amp; diploma's</div>
+    </div>
+    <h2>Welke diploma's heeft Fatima?</h2>
+
+    <div class="divider" style="margin-top:0"></div>
+
+    <p class="subtitle" style="color:rgba(100,9,52,0.65);margin-bottom:16px">Welke ambities heeft Fatima</p>
+    <div class="form-group">
+      <label>Doelfunctie</label>
+      <div class="select-wrap">
+        <select id="fat-doelfunctie">
+          <option>Helpende Plus</option>
+          <option>Verzorgende IG</option>
+          <option>Medewerker maatschappelijke zorg</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="subtitle" style="color:rgba(100,9,52,0.65);margin-bottom:16px">Vul in welke opleidingen zijn afgerond of bezig.</p>
+    <div class="form-group">
+      <label>Diploma's</label>
+      <div class="search-field-wrap">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <circle cx="6.5" cy="6.5" r="5" stroke="#7B7490" stroke-width="1.5"/>
+          <path d="M10.5 10.5L14 14" stroke="#7B7490" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <input type="text" id="fat-diploma" placeholder="Zoek een diploma" value="Helpende Zorg &amp; Welzijn niveau 2">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group" style="margin-bottom:0">
+        <label>Instelling</label>
+        <input type="text" id="fat-instelling" placeholder="bv. ROC Tilburg" value="ROC Midden Nederland">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label>Jaar behaald</label>
+        <input type="text" id="fat-jaar" placeholder="bv. 2019" value="2022">
+      </div>
+    </div>
+    <button class="add-link" style="margin-top:12px">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M7 1v12M1 7h12" stroke="#E5097F" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      Voeg nog een diploma toe
+    </button>
+
+    <div class="form-group">
+      <label>Lopende opleidingen</label>
+      <div class="search-field-wrap">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <circle cx="6.5" cy="6.5" r="5" stroke="#7B7490" stroke-width="1.5"/>
+          <path d="M10.5 10.5L14 14" stroke="#7B7490" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <input type="text" id="fat-lopend" placeholder="Zoek een opleiding">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Verwacht afstudeerjaar</label>
+      <input type="text" id="fat-afstudeerjaar" placeholder="bv. 2026">
+    </div>
+
+    <div class="divider"></div>
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goTo('s-fatima')">← &nbsp;Terug</button>
+      <button class="btn-primary" onclick="goTo('s-fatima')">Opslaan &nbsp;→</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCREEN 11: FATIMA — WAT MOET FATIMA NOG LEREN
+═══════════════════════════════════════════ -->
+<div id="s-fatima" class="screen">
+  <div class="card">
+    <div class="kompas-header">
+      <h2>Wat moet Fatima nog leren?</h2>
+      <p>Vergelijk huidig profiel met de eisen van de doelfunctie</p>
+    </div>
+
+    <div class="person-row">
+      <div class="avatar" style="background:#f8b9d8;color:#640934">FY</div>
+      <div>
+        <div class="person-name">Fatima Yilmaz</div>
+        <div class="person-role" style="font-size:12px;color:#640934">Helpende — 2 jaar in dienst</div>
+      </div>
+    </div>
+
+    <div onclick="goTo('s-fatima-diplomas')" style="background:#0038b8;color:#fff;border-radius:10px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;font-size:13px;font-weight:500;cursor:pointer;transition:opacity 0.15s" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
+      <span>Doelfunctie &nbsp;&mdash;&nbsp; Helpende Plus bij Sevagram</span>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <div class="kompas-col-headers">
+      <div class="kompas-skill-col"></div>
+      <div class="kompas-level-cols">
+        <div class="kompas-col-head">Ondersteunen</div>
+        <div class="kompas-col-head">Assisteren</div>
+        <div class="kompas-col-head">Zelfstandig</div>
+        <div class="kompas-col-head">Cliënt coord.</div>
+      </div>
+    </div>
+
+    <div id="fatima-rows"></div>
+
+    <div class="kompas-legend">
+      <div class="legend-item">
+        <div class="k-dot verified">
+          <svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1.5 5L5 8.5L11.5 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        Diploma of certificaat behaald
+      </div>
+      <div class="legend-item">
+        <div class="k-dot pending">
+          <svg width="14" height="4" viewBox="0 0 14 4" fill="none"><circle cx="2" cy="2" r="2" fill="#118175"/><circle cx="7" cy="2" r="2" fill="#118175"/><circle cx="12" cy="2" r="2" fill="#118175"/></svg>
+        </div>
+        Zelf aangegeven vaardigheid
+      </div>
+      <div class="legend-item">
+        <div class="k-dot doelfunctie"></div>
+        Vereist voor doelfunctie
+      </div>
+      <div class="legend-item">
+        <div class="k-dot"></div>
+        Niet aanwezig
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="btn-row single">
+      <button class="btn-secondary" onclick="goTo('s-welkom')">← &nbsp;Terug naar welkom</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── STATE ──
+  const state = {
+    voornaam: 'Sara',
+    achternaam: 'Bos',
+    achtergrond: 'Zij-instromer',
+    locatie: '',
+    skills: {},
+    skillSources: {}, // skill → { level, diploma } voor diploma-verified skills
+    doelfunctie: 'Helpende plus'
+  };
+
+  // ── DIPLOMA → SKILL MAPPING ──
+  const diplomaMap = {
+    'coach (icf gecertificeerd)': {
+      'Coachen & begeleiden': 3,
+      'Communicatie & relationeel werken': 3,
+      'Reflectie, veerkracht & professionele ontwikkeling': 3,
+      'Persoonsgerichte zorg & samen beslissen': 2,
+      'Ethiek & morele reflectie': 2,
+    }
+  };
+
+  function applyDiploma(diplomaName) {
+    const key = diplomaName.toLowerCase().trim();
+    // Clear any previously diploma-set skills that came from old diploma
+    Object.keys(state.skillSources).forEach(skill => {
+      if (state.skillSources[skill]) {
+        state.skills[skill] = null;
+        delete state.skillSources[skill];
+      }
+    });
+    // Apply new diploma skills
+    if (diplomaMap[key]) {
+      const mapping = diplomaMap[key];
+      Object.entries(mapping).forEach(([skill, level]) => {
+        state.skills[skill] = level;
+        state.skillSources[skill] = diplomaName;
+      });
+    }
+    // Re-render all pill groups
+    renderPillGroup('pills-kwaliteit', skillCategories['KWALITEIT VAN LEVEN']);
+    renderPillGroup('pills-samen', skillCategories['SAMEN BESLISSEN']);
+    renderPillGroup('pills-zorg', skillCategories['ZORGINHOUD & PROFESSIONEEL HANDELEN']);
+    renderPillGroup('pills-speciaal', skillCategories['SPECIALE AANDOENINGEN']);
+    renderPillGroup('pills-digitaal', skillCategories['DIGITALISERING, PROFESSIONALITEIT & DUURZAME INZET']);
+  }
+
+  // ── SKILL DATA ──
+  const skillCategories = {
+    'KWALITEIT VAN LEVEN': [
+      'ADL & dagelijks functioneren',
+      'Reablement & herstelgericht werken',
+      'Ondersteunen bij wonen & welzijn',
+      'Eten & drinken ondersteunen',
+      'Daginvulling, participatie & betekenisvolle activiteiten',
+      'Preventie & leefstijl',
+      'Zingeving en spiritualiteit',
+      'Palliatieve zorg',
+    ],
+    'SAMEN BESLISSEN': [
+      'Persoonsgerichte zorg & samen beslissen',
+      'Communicatie & relationeel werken',
+      'Ethiek & morele reflectie',
+      'Samenwerken met mantelzorg & professionals',
+      'Bijdragen aan zorgplan',
+    ],
+    'ZORGINHOUD & PROFESSIONEEL HANDELEN': [
+      'Klinisch redeneren',
+      'Vroegsignalering & preventief handelen',
+      'Omgaan met multimorbiditeit & complexiteit',
+      'Hygiënisch & veilig werken',
+      'Medicatie & verpleegtechnisch handelen',
+      'Reanimeren & calamiteiten',
+    ],
+    'SPECIALE AANDOENINGEN': [
+      'Dementiezorg (integraal & persoonsgericht)',
+      'Onbegrepen gedrag & psychosociale complexiteit',
+    ],
+    'DIGITALISERING, PROFESSIONALITEIT & DUURZAME INZET': [
+      'Digitaal & datagedreven werken',
+      'Omgaan met schaarste & prioritering',
+      'Reflectie, veerkracht & professionele ontwikkeling',
+      'Vakinhoudelijke kennis',
+      'Regievoering',
+      'Coachen & begeleiden',
+    ],
+  };
+
+  const pillLabels = ['Ondersteunen', 'Assisteren', 'Zelfstandig', 'Cliënt coord.'];
+
+  const pillTooltips = [
+    'Voert de taak uit onder begeleiding en toezicht van een collega.',
+    'Begeleidt de cliënt bij een vooraf afgesproken woon- of welzijnsactiviteit.',
+    'Voert de taak volledig zelfstandig en verantwoord uit.',
+    'Coördineert de zorg rondom de cliënt en stemt af met andere disciplines.',
+  ];
+
+  const skillTooltips = {
+    'ADL & dagelijks functioneren': [
+      'Ondersteunt de cliënt bij het zoveel mogelijk zelf uitvoeren van een dagelijkse handeling op aanwijzing of volgens werkafspraak.',
+      'Ondersteunt de cliënt actief bij een ADL-handeling volgens cliëntgebonden zorgafspraak of werkinstructie.',
+      'Voert een ADL-handeling zelfstandig uit volgens zorgplan of protocol.',
+      'Bepaalt met cliënt en team welke ADL-ondersteuning wordt gestimuleerd, geoefend, geboden of overgenomen.',
+    ],
+    'Reablement & herstelgericht werken': [
+      'Stimuleert de cliënt om een dagelijkse handeling zoveel mogelijk zelf uit te voeren.',
+      'Oefent een afgesproken handeling met de cliënt volgens werkwijze of instructie.',
+      'Voert herstelgerichte ondersteuning uit en rapporteert voortgang in functioneren.',
+      'Stelt met cliënt en team herstelgerichte doelen vast en evalueert de voortgang.',
+    ],
+    'Ondersteunen bij wonen & welzijn': [
+      'Ondersteunt de cliënt bij dagstructuur, gastvrijheid en deelname aan dagelijkse activiteiten.',
+      'Begeleidt de cliënt bij een vooraf afgesproken woon- of welzijnsactiviteit.',
+      'Voert woon- en welzijnsondersteuning zelfstandig uit binnen begeleidings- of zorgafspraak en stemt het handelen af op de situatie van de cliënt.',
+      'Stemt met cliënt en team passende woon- en welzijnsondersteuning af bij complexere vragen.',
+    ],
+    'Eten & drinken ondersteunen': [
+      'Ondersteunt het eet- en drinkmoment volgens werkafspraak of dagstructuur.',
+      'Ondersteunt de cliënt bij eten en drinken volgens cliëntgebonden zorgafspraak.',
+      'Voert cliëntgebonden afspraken over eten, drinken en voedingsinname uit volgens zorgplan of protocol.',
+      'Stemt met cliënt, team en betrokken disciplines af welke ondersteuning bij eten, drinken en voedingsrisico\'s passend is.',
+    ],
+    'Daginvulling, participatie & betekenisvolle activiteiten': [
+      'Ondersteunt de cliënt bij deelname aan de dagstructuur en sluit aan bij bekende voorkeuren en keuzes.',
+      'Helpt de cliënt een keuze te maken uit passende activiteiten en begeleidt deelname.',
+      'Stemt activiteiten zelfstandig af op interesses, belastbaarheid en actuele situatie van de cliënt.',
+      'Maakt met cliënt en team keuzes over passende daginvulling bij veranderende belastbaarheid, beperkte energie of middelen.',
+    ],
+    'Preventie & leefstijl': [
+      'Merkt leefstijl- of veiligheidsrisico\'s op en meldt deze aan het team.',
+      'Stimuleert de cliënt tot afgesproken preventief of gezond gedrag.',
+      'Voert afgesproken preventieve acties uit volgens zorgplan of protocol.',
+      'Weegt met cliënt en team preventieve doelen af tegen draagkracht en levensfase.',
+    ],
+    'Zingeving en spiritualiteit': [
+      'Merkt signalen van behoefte aan nabijheid, betekenis of gesprek op en meldt deze aan het team.',
+      'Gaat in gesprek met de cliënt over eenvoudige vragen rond betekenis, verlies of dagelijks welbevinden.',
+      'Verbindt zingevingsvragen van de cliënt aan passende ondersteuning of daginvulling.',
+      'Neemt zingevingsvragen mee in afwegingen over zorg, welzijn en achteruitgang.',
+    ],
+    'Palliatieve zorg': [
+      'Merkt veranderingen in comfort, welbevinden of behoefte aan nabijheid op en meldt deze aan het team.',
+      'Herkent afgesproken signalen van achteruitgang in de palliatieve fase en meldt deze aan het team.',
+      'Biedt basale palliatieve ondersteuning volgens zorgplan en betrekt naasten volgens afspraak.',
+      'Stemt palliatieve ondersteuning af met cliënt, naasten, team en betrokken behandelaren.',
+    ],
+    'Persoonsgerichte zorg & samen beslissen': [
+      'Sluit in dagelijkse ondersteuning aan bij bekende voorkeuren en keuzes van de cliënt.',
+      'Stimuleert de cliënt om wensen en keuzes te uiten binnen de afgesproken ondersteuning.',
+      'Bespreekt opties en mogelijke gevolgen met de cliënt binnen de zorg- of begeleidingsafspraak.',
+      'Begeleidt besluitvorming bij dilemma\'s en bewaakt autonomie, veiligheid en kwaliteit van leven.',
+    ],
+    'Communicatie & relationeel werken': [
+      'Communiceert respectvol, duidelijk en begrijpelijk met cliënt, naasten en collega\'s.',
+      'Past de communicatie aan op de situatie, mogelijkheden en reactie van de cliënt.',
+      'Bespreekt veranderingen in functioneren of welbevinden met cliënt en team.',
+      'Voert professionele gesprekken over verlies, grenzen, conflicten of moeilijke keuzes.',
+    ],
+    'Ethiek & morele reflectie': [
+      'Merkt situaties op waarin waarden, wensen of afspraken lijken te botsen en meldt dit aan het team.',
+      'Bespreekt een ervaren dilemma of spanning met een collega of verantwoordelijke.',
+      'Licht een cliëntsituatie met morele spanning toe in overleg en denkt mee over de afgesproken aanpak.',
+      'Weegt verschillende waarden en belangen af, organiseert zo nodig overleg en verantwoordt de gekozen aanpak met cliënt en team.',
+    ],
+    'Samenwerken met mantelzorg & professionals': [
+      'Betrekt naasten bij praktische dagelijkse ondersteuning volgens afspraak.',
+      'Stemt met cliënt en naasten af hoe de afgesproken ondersteuning praktisch wordt uitgevoerd.',
+      'Stemt werkzaamheden en vervolg af binnen team en cliëntsituatie.',
+      'Coördineert de samenwerking rond de cliënt en bewaakt draagkracht en continuïteit.',
+    ],
+    'Bijdragen aan zorgplan': [
+      'Geeft feitelijke bijzonderheden uit dagelijkse ondersteuning door aan het team.',
+      'Rapporteert cliëntgebonden bijzonderheden volgens de geldende werkwijze.',
+      'Rapporteert voortgang en veranderingen in relatie tot doelen en afspraken in het zorgplan.',
+      'Bewaakt dat zorgafspraken en het plan passend blijven.',
+    ],
+    'Klinisch redeneren': [
+      'Merkt afwijkingen van de gebruikelijke situatie, instructie of werkafspraak op en meldt deze aan het team.',
+      'Herkent bekende veranderingen bij de cliënt en stemt een afgesproken vervolgstap af met het team.',
+      'Duidt observaties binnen zorgplan of protocol en bespreekt passende vervolgstappen met het team.',
+      'Weegt bij onzekere cliëntsituaties opties, risico\'s en gevolgen af en verantwoordt de gekozen aanpak.',
+    ],
+    'Vroegsignalering & preventief handelen': [
+      'Merkt bijzonderheden in functioneren, welbevinden of leefomgeving op en meldt deze aan het team.',
+      'Herkent bekende risicosignalen bij de cliënt en voert afgesproken eerste acties uit.',
+      'Observeert veranderingen over tijd en rapporteert deze in relatie tot het zorgplan.',
+      'Weegt signalen bij onzekerheid en organiseert passende vervolgactie of opschaling met cliënt en team.',
+    ],
+    'Omgaan met multimorbiditeit & complexiteit': [
+      'Merkt op dat meerdere problemen of veranderingen tegelijk zichtbaar zijn en meldt dit aan het team.',
+      'Houdt bij de ondersteuning rekening met bekende aandoeningen, beperkingen of afspraken van de cliënt.',
+      'Overziet samenhang tussen meerdere signalen en past het handelen aan binnen zorgplan of protocol.',
+      'Weegt behandeling, functioneren, risico\'s en kwaliteit van leven af met cliënt en team.',
+    ],
+    'Hygiënisch & veilig werken': [
+      'Werkt hygiënisch en veilig volgens instructie bij dagelijkse ondersteuning.',
+      'Past geldende veiligheids- en hygiëneafspraken toe binnen de afgesproken ondersteuning.',
+      'Voert hygiënisch en veilig werken zelfstandig uit volgens protocol en meldt afwijkingen.',
+      'Bewaakt veilig werken in het cliëntproces en organiseert vervolgacties bij risico\'s of incidenten.',
+    ],
+    'Medicatie & verpleegtechnisch handelen': [
+      'Meldt vragen of bijzonderheden rond medicatie of verpleegtechnische handelingen aan het team zonder de handeling zelf uit te voeren.',
+      'Assisteert alleen bij eenvoudige verzorgende of verpleegtechnische handelingen binnen instructie, taakgrens en bekwaamheid.',
+      'Voert medicatie- of verpleegtechnische handelingen zelfstandig uit uitsluitend na aanvullende bevoegdheid en aantoonbare bekwaamheid, volgens protocol.',
+      'Bewaakt dat medicatie- en verpleegtechnische handelingen worden uitgevoerd door bevoegde en bekwame medewerkers en stemt risico\'s of afwijkingen af met betrokkenen.',
+    ],
+    'Reanimeren & calamiteiten': [
+      'Herkent een acute of onveilige situatie en alarmeert volgens de geldende werkwijze.',
+      'Volgt aanwijzingen op bij een calamiteit en ondersteunt binnen eigen taakgrens.',
+      'Handelt bij acute situaties volgens scholing, protocol en bekwaamheid.',
+      'Neemt regie in een crisissituatie, coördineert vervolg en zorgt voor overdracht of nazorg.',
+    ],
+    'Dementiezorg (integraal & persoonsgericht)': [
+      'Benadert de cliënt met dementie rustig en respectvol volgens bekende omgangsafspraken.',
+      'Herkent bij de cliënt bekende signalen van onrust, verwarring of overprikkeling en past de afgesproken benaderingswijze toe.',
+      'Stemt benadering en omgeving af op fase, gedrag en behoeften van de cliënt volgens zorgplan.',
+      'Coördineert persoonsgerichte dementiezorg bij complexe situaties met cliënt, naasten en team.',
+    ],
+    'Onbegrepen gedrag & psychosociale complexiteit': [
+      'Merkt gedrag op dat afwijkt van de gebruikelijke situatie en meldt feitelijk wat hij of zij ziet of hoort.',
+      'Herkent afgesproken signalen van onbegrepen gedrag en past een afgesproken benaderingswijze toe.',
+      'Observeert gedrag volgens een afgesproken werkwijze, rapporteert feitelijk en evalueert het effect van de benadering met het team.',
+      'Analyseert mogelijke oorzaken van onbegrepen gedrag en verantwoordt de gekozen aanpak met cliënt, naasten en team.',
+    ],
+    'Digitaal & datagedreven werken': [
+      'Gebruikt afgesproken digitale middelen voor het werkproces en meldt digitale knelpunten.',
+      'Legt cliëntgebonden informatie vast volgens de geldende werkwijze in ECD.',
+      'Combineert observaties en geregistreerde gegevens in het Plan om veranderingen bij de cliënt te herkennen.',
+      'Weegt informatie uit ECD mee in afstemming en keuzes rond het cliëntproces.',
+    ],
+    'Omgaan met schaarste & prioritering': [
+      'Volgt afgesproken prioriteiten in het werk en meldt wanneer werkzaamheden niet haalbaar zijn.',
+      'Past de volgorde van afgesproken werkzaamheden aan binnen de geldende afspraken.',
+      'Bespreekt keuzes en gevolgen wanneer niet alle ondersteuning tegelijk mogelijk is.',
+      'Prioriteert bij schaarste met cliënt en team en verantwoordt de gemaakte keuzes.',
+    ],
+    'Reflectie, veerkracht & professionele ontwikkeling': [
+      'Reflecteert op eigen taken: gaat vóór uitvoering na of opdracht, instructie, informatie, materialen en eigen taakgrens duidelijk zijn, vraagt hulp bij onduidelijkheid en benoemt wat een volgende keer nodig is.',
+      'Bespreekt ervaringen en feedback op het eigen handelen en past leerpunten toe in vergelijkbare situaties.',
+      'Reflecteert doelgericht op het eigen handelen en bespreekt leerpunten in overleg of intervisie.',
+      'Bespreekt eigen en teambelasting en onderneemt actie bij signalen van overbelasting of morele stress.',
+    ],
+    'Vakinhoudelijke kennis': [
+      'Past basiskennis over zorg, veiligheid en veelvoorkomende ziektebeelden in de eigen werkomgeving toe in dagelijkse ondersteuning.',
+      'Herkent bekende signalen die passen bij veelvoorkomende ziektebeelden en handelt volgens cliëntgebonden afspraken of werkinstructie.',
+      'Gebruikt vakinhoudelijke kennis over ADL, veelvoorkomende ziektebeelden en risico\'s om ondersteuning verantwoord uit te voeren en veranderingen te rapporteren.',
+      'Gebruikt vakinhoudelijke kennis over ziektebeelden, risico\'s, bevoegdheden en bekwaamheden om keuzes in het cliëntproces te onderbouwen.',
+    ],
+    'Regievoering': [
+      'Voert eigen werkzaamheden uit volgens planning of instructie en meldt knelpunten.',
+      'Ordent eigen werkzaamheden binnen de afgesproken ondersteuning.',
+      'Stemt de uitvoering van zorg- of ondersteuningsactiviteiten af binnen zorgplan of werkwijze.',
+      'Bewaakt samenhang, vervolg en afspraken binnen het cliëntproces.',
+    ],
+    'Coachen & begeleiden': [
+      'Volgt eigen werkbegeleiding en leert van voorbeeldgedrag van collega\'s.',
+      'Laat bewust voorbeeldgedrag zien in het uitvoeren van afgesproken werkzaamheden.',
+      'Begeleidt een collega, stagiair of vrijwilliger bij een eenvoudige afgesproken taak.',
+      'Coacht en begeleidt collega\'s, stagiairs, mantelzorgers of vrijwilligers binnen het zorg-, woon- en welzijnsproces.',
+    ],
+  };
+
+  // ── NAVIGATION ──
+  function nextFromDiplomas() {
+    if (state.achtergrond === 'Instromer vanuit andere zorgorganisatie') {
+      goTo('s-fatima-groeipad');
+    } else {
+      goTo('s-vaard-01');
+    }
+  }
+
+  function goTo(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  // ── SAVE WIE ──
+  function saveWie() {
+    const v = document.getElementById('inp-voornaam').value.trim();
+    const a = document.getElementById('inp-achternaam').value.trim();
+    if (v) state.voornaam = v;
+    if (a) state.achternaam = a;
+    state.achtergrond = document.getElementById('inp-achtergrond').value || state.achtergrond;
+    state.locatie = document.getElementById('inp-locatie').value.trim();
+    updateNames();
+    if (state.achtergrond === 'Instromer vanuit andere zorgorganisatie') {
+      document.getElementById('inp-diploma').value = 'Helpende Zorg & Welzijn niveau 2';
+      document.getElementById('inp-instelling').value = 'ROC Midden Nederland';
+      document.getElementById('inp-jaar').value = '2022';
+      document.querySelector('#s-diplomas .stepper-fill').style.width = '66%';
+      document.querySelector('#s-diplomas .stepper-label').textContent = 'Stap 2/3 \u00a0\u2014\u00a0 Diploma\'s';
+    }
+  }
+
+  // ── SAVE GROEIPAD ──
+  function saveGroeipad() {
+    state.doelfunctie = document.getElementById('inp-doelfunctie').value;
+  }
+
+  function updateNames() {
+    const full = `${state.voornaam} ${state.achternaam}`.trim();
+    const initials = (state.voornaam[0] || '') + (state.achternaam[0] || '');
+
+    // Update diploma screen title
+    document.getElementById('h-diplomas').textContent = `Welke diploma's heeft ${state.voornaam}?`;
+
+    // Update groeipad screen
+    document.getElementById('h-groeipad-naam').textContent = state.voornaam;
+    document.querySelectorAll('.groeipad-voornaam').forEach(el => el.textContent = state.voornaam);
+
+    // Update vaardigheden titles
+    ['h-vaard-01', 'h-vaard-02', 'h-vaard-03'].forEach(id => {
+      document.getElementById(id).textContent = `Wat kan ${state.voornaam} nog meer?`;
+    });
+
+    // Update samenvatting
+    document.getElementById('sam-naam').textContent = full || 'Sara Bos';
+    document.getElementById('sam-avatar').textContent = initials || 'SB';
+
+    // Update kompas
+    document.getElementById('komp-naam').textContent = full || 'Sara Bos';
+    document.getElementById('komp-avatar').textContent = initials || 'SB';
+  }
+
+  // ── RENDER PILLS ──
+  function renderPillGroup(containerId, skills) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = '';
+
+    skills.forEach(skill => {
+      if (!(skill in state.skills)) state.skills[skill] = null;
+
+      const isVerified = !!state.skillSources[skill];
+      const block = document.createElement('div');
+      block.className = 'skill-block';
+
+      const nameEl = document.createElement('div');
+      nameEl.className = 'skill-name';
+      nameEl.textContent = skill;
+      block.appendChild(nameEl);
+
+      const pillsEl = document.createElement('div');
+      pillsEl.className = 'pills';
+
+      pillLabels.forEach((label, i) => {
+        const level = i + 1;
+        const pill = document.createElement('button');
+        pill.className = 'pill';
+        pill.dataset.level = level;
+        pill.dataset.tooltip = (skillTooltips[skill] || pillTooltips)[i];
+        pill.textContent = label;
+
+        if (state.skills[skill] === level) {
+          pill.classList.add('selected');
+          if (isVerified) pill.classList.add('verified');
+        }
+
+        pill.addEventListener('click', () => {
+          const current = state.skills[skill];
+          // Manual click clears diploma source
+          delete state.skillSources[skill];
+          state.skills[skill] = current === level ? null : level;
+          renderPillGroup(containerId, skills);
+        });
+
+        pillsEl.appendChild(pill);
+      });
+
+      block.appendChild(pillsEl);
+
+      if (isVerified) {
+        const source = document.createElement('div');
+        source.className = 'skill-source';
+        source.textContent = `Vaardigheid uit '${state.skillSources[skill]}'`;
+        block.appendChild(source);
+      }
+
+      container.appendChild(block);
+    });
+  }
+
+  // ── BUILD SAMENVATTING ──
+  function buildSamenvatting() {
+    const full = `${state.voornaam} ${state.achternaam}`.trim();
+    const initials = (state.voornaam[0] || '') + (state.achternaam[0] || '');
+    document.getElementById('sam-naam').textContent = full || 'Sara Bos';
+    document.getElementById('sam-avatar').textContent = initials || 'SB';
+
+    const allSkills = Object.values(skillCategories).flat();
+    const verified = allSkills.filter(s => !!state.skillSources[s]);
+    const selfReported = allSkills.filter(s => state.skills[s] && !state.skillSources[s]);
+    document.getElementById('stat-diploma').textContent = verified.length;
+    document.getElementById('stat-te-controleren').textContent = selfReported.length;
+
+    const container = document.getElementById('sam-skills');
+    container.innerHTML = '';
+
+    Object.entries(skillCategories).forEach(([cat, skills]) => {
+      const catEl = document.createElement('div');
+      catEl.className = 'category-label';
+      catEl.style.marginTop = '16px';
+      catEl.textContent = cat;
+      container.appendChild(catEl);
+
+      skills.forEach(skill => {
+        const level = state.skills[skill] || 0;
+        const row = document.createElement('div');
+        row.className = 'summary-row';
+
+        const nameEl = document.createElement('div');
+        nameEl.className = 'summary-skill-name';
+        nameEl.textContent = skill;
+
+        const isVerified = !!state.skillSources[skill];
+        const pill = document.createElement('div');
+        pill.className = `summary-pill level-${level}${isVerified ? ' verified' : ''}`;
+        pill.textContent = level === 0 ? 'Niet ingevuld' : pillLabels[level - 1];
+
+        row.appendChild(nameEl);
+        row.appendChild(pill);
+        container.appendChild(row);
+      });
+    });
+  }
+
+  // ── BUILD KOMPAS ──
+  function buildKompas() {
+    const full = `${state.voornaam} ${state.achternaam}`.trim();
+    const initials = (state.voornaam[0] || '') + (state.achternaam[0] || '');
+    document.getElementById('komp-naam').textContent = full || 'Sara Bos';
+    document.getElementById('komp-avatar').textContent = initials || 'SB';
+
+    const container = document.getElementById('kompas-rows');
+    container.innerHTML = '';
+
+    Object.entries(skillCategories).forEach(([cat, skills]) => {
+      const catEl = document.createElement('div');
+      catEl.className = 'kompas-category';
+      catEl.textContent = cat;
+      container.appendChild(catEl);
+
+      skills.forEach(skill => {
+        const level = state.skills[skill] || 0;
+        const row = document.createElement('div');
+        row.className = 'kompas-row';
+
+        const nameEl = document.createElement('div');
+        nameEl.className = 'kompas-row-name';
+        nameEl.textContent = skill;
+
+        const dots = document.createElement('div');
+        dots.className = 'kompas-dots';
+
+        [1, 2, 3, 4].forEach(l => {
+          const cell = document.createElement('div');
+          cell.className = 'kompas-dot-cell';
+          const dot = document.createElement('div');
+
+          const isVerified = !!state.skillSources[skill];
+          if (level >= l) {
+            if (isVerified) {
+              dot.className = 'k-dot verified';
+              dot.innerHTML = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.354 4.85366L6.35403 12.8537C6.30759 12.9002 6.25245 12.937 6.19175 12.9622C6.13105 12.9874 6.06599 13.0003 6.00028 13.0003C5.93457 13.0003 5.86951 12.9874 5.80881 12.9622C5.74811 12.937 5.69296 12.9002 5.64653 12.8537L2.14653 9.35366C2.05271 9.25984 2 9.13259 2 8.99991C2 8.86723 2.05271 8.73998 2.14653 8.64616C2.24035 8.55234 2.3676 8.49963 2.50028 8.49963C2.63296 8.49963 2.76021 8.55234 2.85403 8.64616L6.00028 11.793L13.6465 4.14616C13.7403 4.05234 13.8676 3.99963 14.0003 3.99963C14.133 3.99963 14.2602 4.05234 14.354 4.14616C14.4478 4.23998 14.5006 4.36723 14.5006 4.49991C14.5006 4.63259 14.4478 4.75984 14.354 4.85366Z" fill="white"/></svg>`;
+            } else {
+              dot.className = 'k-dot pending';
+              dot.innerHTML = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.75 8C8.75 8.14834 8.70601 8.29334 8.6236 8.41668C8.54119 8.54001 8.42406 8.63614 8.28701 8.69291C8.14997 8.74968 7.99917 8.76453 7.85368 8.73559C7.7082 8.70665 7.57456 8.63522 7.46967 8.53033C7.36478 8.42544 7.29335 8.2918 7.26441 8.14632C7.23547 8.00083 7.25033 7.85003 7.30709 7.71299C7.36386 7.57594 7.45999 7.45881 7.58332 7.3764C7.70666 7.29399 7.85166 7.25 8 7.25C8.19891 7.25 8.38968 7.32902 8.53033 7.46967C8.67098 7.61032 8.75 7.80109 8.75 8ZM12.25 7.25C12.1017 7.25 11.9567 7.29399 11.8333 7.3764C11.71 7.45881 11.6139 7.57594 11.5571 7.71299C11.5003 7.85003 11.4855 8.00083 11.5144 8.14632C11.5433 8.2918 11.6148 8.42544 11.7197 8.53033C11.8246 8.63522 11.9582 8.70665 12.1037 8.73559C12.2492 8.76453 12.4 8.74968 12.537 8.69291C12.6741 8.63614 12.7912 8.54001 12.8736 8.41668C12.956 8.29334 13 8.14834 13 8C13 7.80109 12.921 7.61032 12.7803 7.46967C12.6397 7.32902 12.4489 7.25 12.25 7.25ZM3.75 7.25C3.60166 7.25 3.45666 7.29399 3.33332 7.3764C3.20999 7.45881 3.11386 7.57594 3.05709 7.71299C3.00032 7.85003 2.98547 8.00083 3.01441 8.14632C3.04335 8.2918 3.11478 8.42544 3.21967 8.53033C3.32456 8.63522 3.4582 8.70665 3.60368 8.73559C3.74917 8.76453 3.89997 8.74968 4.03701 8.69291C4.17406 8.63614 4.29119 8.54001 4.3736 8.41668C4.45601 8.29334 4.5 8.14834 4.5 8C4.5 7.80109 4.42098 7.61032 4.28033 7.46967C4.13968 7.32902 3.94891 7.25 3.75 7.25Z" fill="#118175"/></svg>`;
+            }
+          } else {
+            dot.className = 'k-dot';
+          }
+
+          cell.appendChild(dot);
+          dots.appendChild(cell);
+        });
+
+        row.appendChild(nameEl);
+        row.appendChild(dots);
+        container.appendChild(row);
+      });
+    });
+  }
+
+  // ── 2 MAANDEN DATA (hardcoded vanuit Figma) ──
+  // elke waarde: 'verified' | 'pending' | 'empty'
+  const twoMonthsDots = {
+    'ADL & dagelijks functioneren':                        ['verified','verified','empty','empty'],
+    'Reablement & herstelgericht werken':                  ['verified','verified','empty','empty'],
+    'Ondersteunen bij wonen & welzijn':                    ['verified','verified','pending','empty'],
+    'Eten & drinken ondersteunen':                         ['verified','verified','verified','empty'],
+    'Daginvulling, participatie & betekenisvolle activiteiten': ['verified','verified','verified','empty'],
+    'Preventie & leefstijl':                               ['verified','verified','pending','empty'],
+    'Zingeving en spiritualiteit':                         ['verified','pending','empty','empty'],
+    'Palliatieve zorg':                                    ['pending','pending','empty','empty'],
+    'Persoonsgerichte zorg & samen beslissen':             ['verified','verified','empty','empty'],
+    'Communicatie & relationeel werken':                   ['verified','verified','verified','verified'],
+    'Ethiek & morele reflectie':                           ['verified','verified','empty','empty'],
+    'Samenwerken met mantelzorg & professionals':          ['verified','verified','empty','empty'],
+    'Bijdragen aan zorgplan':                              ['verified','verified','empty','empty'],
+    'Klinisch redeneren':                                  ['verified','verified','empty','empty'],
+    'Vroegsignalering & preventief handelen':              ['verified','verified','verified','empty'],
+    'Omgaan met multimorbiditeit & complexiteit':          ['verified','verified','verified','empty'],
+    'Hygiënisch & veilig werken':                          ['verified','verified','verified','verified'],
+    'Medicatie & verpleegtechnisch handelen':              ['verified','verified','empty','empty'],
+    'Reanimeren & calamiteiten':                           ['verified','verified','empty','empty'],
+    'Dementiezorg (integraal & persoonsgericht)':          ['verified','verified','empty','empty'],
+    'Onbegrepen gedrag & psychosociale complexiteit':      ['verified','verified','empty','empty'],
+    'Digitaal & datagedreven werken':                      ['verified','verified','verified','verified'],
+    'Omgaan met schaarste & prioritering':                 ['pending','pending','empty','empty'],
+    'Reflectie, veerkracht & professionele ontwikkeling':  ['verified','verified','verified','empty'],
+    'Vakinhoudelijke kennis':                              ['verified','verified','empty','empty'],
+    'Regievoering':                                        ['pending','pending','empty','empty'],
+    'Coachen & begeleiden':                                ['verified','verified','verified','empty'],
+  };
+
+  const checkSvg = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14.354 4.85366L6.35403 12.8537C6.30759 12.9002 6.25245 12.937 6.19175 12.9622C6.13105 12.9874 6.06599 13.0003 6.00028 13.0003C5.93457 13.0003 5.86951 12.9874 5.80881 12.9622C5.74811 12.937 5.69296 12.9002 5.64653 12.8537L2.14653 9.35366C2.05271 9.25984 2 9.13259 2 8.99991C2 8.86723 2.05271 8.73998 2.14653 8.64616C2.24035 8.55234 2.3676 8.49963 2.50028 8.49963C2.63296 8.49963 2.76021 8.55234 2.85403 8.64616L6.00028 11.793L13.6465 4.14616C13.7403 4.05234 13.8676 3.99963 14.0003 3.99963C14.133 3.99963 14.2602 4.05234 14.354 4.14616C14.4478 4.23998 14.5006 4.36723 14.5006 4.49991C14.5006 4.63259 14.4478 4.75984 14.354 4.85366Z" fill="white"/></svg>`;
+  const dotsSvg  = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8.75 8C8.75 8.14834 8.70601 8.29334 8.6236 8.41668C8.54119 8.54001 8.42406 8.63614 8.28701 8.69291C8.14997 8.74968 7.99917 8.76453 7.85368 8.73559C7.7082 8.70665 7.57456 8.63522 7.46967 8.53033C7.36478 8.42544 7.29335 8.2918 7.26441 8.14632C7.23547 8.00083 7.25033 7.85003 7.30709 7.71299C7.36386 7.57594 7.45999 7.45881 7.58332 7.3764C7.70666 7.29399 7.85166 7.25 8 7.25C8.19891 7.25 8.38968 7.32902 8.53033 7.46967C8.67098 7.61032 8.75 7.80109 8.75 8ZM12.25 7.25C12.1017 7.25 11.9567 7.29399 11.8333 7.3764C11.71 7.45881 11.6139 7.57594 11.5571 7.71299C11.5003 7.85003 11.4855 8.00083 11.5144 8.14632C11.5433 8.2918 11.6148 8.42544 11.7197 8.53033C11.8246 8.63522 11.9582 8.70665 12.1037 8.73559C12.2492 8.76453 12.4 8.74968 12.537 8.69291C12.6741 8.63614 12.7912 8.54001 12.8736 8.41668C12.956 8.29334 13 8.14834 13 8C13 7.80109 12.921 7.61032 12.7803 7.46967C12.6397 7.32902 12.4489 7.25 12.25 7.25ZM3.75 7.25C3.60166 7.25 3.45666 7.29399 3.33332 7.3764C3.20999 7.45881 3.11386 7.57594 3.05709 7.71299C3.00032 7.85003 2.98547 8.00083 3.01441 8.14632C3.04335 8.2918 3.11478 8.42544 3.21967 8.53033C3.32456 8.63522 3.4582 8.70665 3.60368 8.73559C3.74917 8.76453 3.89997 8.74968 4.03701 8.69291C4.17406 8.63614 4.29119 8.54001 4.3736 8.41668C4.45601 8.29334 4.5 8.14834 4.5 8C4.5 7.80109 4.42098 7.61032 4.28033 7.46967C4.13968 7.32902 3.94891 7.25 3.75 7.25Z" fill="#118175"/></svg>`;
+
+  function buildKompas2M() {
+    const container = document.getElementById('kompas-2m-rows');
+    container.innerHTML = '';
+
+    Object.entries(skillCategories).forEach(([cat, skills]) => {
+      const catEl = document.createElement('div');
+      catEl.className = 'kompas-category';
+      catEl.textContent = cat;
+      container.appendChild(catEl);
+
+      skills.forEach(skill => {
+        const dots = twoMonthsDots[skill] || ['empty','empty','empty','empty'];
+        const row = document.createElement('div');
+        row.className = 'kompas-row';
+
+        const nameEl = document.createElement('div');
+        nameEl.className = 'kompas-row-name';
+        nameEl.textContent = skill;
+
+        const dotsEl = document.createElement('div');
+        dotsEl.className = 'kompas-dots';
+
+        dots.forEach(state => {
+          const cell = document.createElement('div');
+          cell.className = 'kompas-dot-cell';
+          const dot = document.createElement('div');
+          if (state === 'verified') {
+            dot.className = 'k-dot verified';
+            dot.innerHTML = checkSvg;
+          } else if (state === 'pending') {
+            dot.className = 'k-dot pending';
+            dot.innerHTML = dotsSvg;
+          } else {
+            dot.className = 'k-dot';
+          }
+          cell.appendChild(dot);
+          dotsEl.appendChild(cell);
+        });
+
+        row.appendChild(nameEl);
+        row.appendChild(dotsEl);
+        container.appendChild(row);
+      });
+    });
+  }
+
+  // ── FATIMA DATA (hardcoded vanuit Figma node 115-2995) ──
+  // elke waarde: 'verified' | 'pending' | 'doelfunctie' | 'empty'
+  // Fatima is een ervaren Helpende niveau 2 (2 jaar). Sterke basis-ADL en hygiëne.
+  // Helpende Plus vereist extra: medicatie/verpleegtechnisch, klinisch redeneren,
+  // regievoering (zelfstandig werken), palliatieve zorg, en reablement.
+  const fatimaDots = {
+    // Kwaliteit van leven — ADL en welzijn beheerst ze goed als Helpende
+    'ADL & dagelijks functioneren':                              ['verified','verified','empty','empty'],
+    'Reablement & herstelgericht werken':                        ['verified','empty','doelfunctie','empty'],  // heeft niveau 1, Helpende Plus vereist niveau 3
+    'Ondersteunen bij wonen & welzijn':                          ['verified','verified','empty','empty'],
+    'Eten & drinken ondersteunen':                               ['verified','verified','empty','empty'],
+    'Daginvulling, participatie & betekenisvolle activiteiten':  ['verified','verified','empty','empty'],
+    'Preventie & leefstijl':                                     ['verified','verified','empty','empty'],
+    'Zingeving en spiritualiteit':                               ['verified','empty','doelfunctie','empty'],  // palliatief context vraagt meer
+    'Palliatieve zorg':                                          ['verified','empty','doelfunctie','empty'],  // groot leerpunt voor Helpende Plus
+
+    // Samen beslissen — communicatie is haar sterkste punt
+    'Persoonsgerichte zorg & samen beslissen':                   ['verified','verified','empty','empty'],
+    'Communicatie & relationeel werken':                         ['verified','verified','verified','empty'],  // level 3 — sterk
+    'Ethiek & morele reflectie':                                 ['verified','verified','empty','empty'],
+    'Samenwerken met mantelzorg & professionals':                ['verified','verified','doelfunctie','empty'],  // meer regie nodig
+    'Bijdragen aan zorgplan':                                    ['verified','verified','doelfunctie','empty'],  // actiever bijdragen vereist
+
+    // Zorginhoud — hier zitten de grootste gaps voor Helpende Plus
+    'Klinisch redeneren':                                        ['verified','empty','doelfunctie','empty'],  // groot gap: Helpende Plus werkt zelfstandiger
+    'Vroegsignalering & preventief handelen':                    ['verified','verified','doelfunctie','empty'],  // vitale functies meten vereist
+    'Omgaan met multimorbiditeit & complexiteit':                ['verified','empty','doelfunctie','empty'],  // meer complexiteit bij Helpende Plus
+    'Hygiënisch & veilig werken':                                ['verified','verified','verified','empty'],  // level 3 — al sterk na 2 jaar
+    'Medicatie & verpleegtechnisch handelen':                    ['verified','empty','doelfunctie','empty'],  // HET kernverschil: medicatie, wondverzorging, katheter
+    'Reanimeren & calamiteiten':                                 ['verified','verified','empty','empty'],
+
+    // Speciale aandoeningen
+    'Dementiezorg (integraal & persoonsgericht)':                ['verified','verified','doelfunctie','empty'],  // niveau 3 vereist in ouderenzorg
+    'Onbegrepen gedrag & psychosociale complexiteit':            ['verified','verified','empty','empty'],
+
+    // Professionaliteit — regievoering is het andere grote leerpunt
+    'Digitaal & datagedreven werken':                            ['verified','verified','empty','empty'],
+    'Omgaan met schaarste & prioritering':                       ['verified','verified','empty','empty'],
+    'Reflectie, veerkracht & professionele ontwikkeling':        ['verified','verified','empty','empty'],
+    'Vakinhoudelijke kennis':                                    ['verified','verified','doelfunctie','empty'],  // Helpende Plus-specifieke kennis vereist
+    'Regievoering':                                              ['verified','empty','doelfunctie','empty'],  // zelfstandig werken = kerneis Helpende Plus
+    'Coachen & begeleiden':                                      ['verified','verified','empty','empty'],
+  };
+
+  function buildFatima() {
+    const container = document.getElementById('fatima-rows');
+    container.innerHTML = '';
+
+    Object.entries(skillCategories).forEach(([cat, skills]) => {
+      const catEl = document.createElement('div');
+      catEl.className = 'kompas-category';
+      catEl.textContent = cat;
+      container.appendChild(catEl);
+
+      skills.forEach(skill => {
+        const rawDots = fatimaDots[skill] || ['empty','empty','empty','empty'];
+        // Fill the gap between last verified and doelfunctie with doelfunctie dots
+        const lastVerifiedIdx = rawDots.lastIndexOf('verified');
+        const doelfunctieIdx = rawDots.lastIndexOf('doelfunctie');
+        const dots = rawDots.map((d, i) =>
+          d === 'empty' && doelfunctieIdx > -1 && i > lastVerifiedIdx && i <= doelfunctieIdx
+            ? 'doelfunctie' : d
+        );
+        const row = document.createElement('div');
+        row.className = 'kompas-row';
+
+        const nameEl = document.createElement('div');
+        nameEl.className = 'kompas-row-name';
+        nameEl.textContent = skill;
+
+        const dotsEl = document.createElement('div');
+        dotsEl.className = 'kompas-dots';
+
+        dots.forEach(dotState => {
+          const cell = document.createElement('div');
+          cell.className = 'kompas-dot-cell';
+          const dot = document.createElement('div');
+          if (dotState === 'verified') {
+            dot.className = 'k-dot verified';
+            dot.innerHTML = checkSvg;
+          } else if (dotState === 'pending') {
+            dot.className = 'k-dot pending';
+            dot.innerHTML = dotsSvg;
+          } else if (dotState === 'doelfunctie') {
+            dot.className = 'k-dot doelfunctie';
+          } else {
+            dot.className = 'k-dot';
+          }
+          cell.appendChild(dot);
+          dotsEl.appendChild(cell);
+        });
+
+        row.appendChild(nameEl);
+        row.appendChild(dotsEl);
+        container.appendChild(row);
+      });
+    });
+  }
+
+  // ── INIT ──
+  function init() {
+    // Render all pill groups
+    renderPillGroup('pills-kwaliteit', skillCategories['KWALITEIT VAN LEVEN']);
+    renderPillGroup('pills-samen', skillCategories['SAMEN BESLISSEN']);
+    renderPillGroup('pills-zorg', skillCategories['ZORGINHOUD & PROFESSIONEEL HANDELEN']);
+    renderPillGroup('pills-speciaal', skillCategories['SPECIALE AANDOENINGEN']);
+    renderPillGroup('pills-digitaal', skillCategories['DIGITALISERING, PROFESSIONALITEIT & DUURZAME INZET']);
+
+    // Prefill demo data
+    document.getElementById('inp-voornaam').value = 'Sara';
+    document.getElementById('inp-achternaam').value = 'Bos';
+    document.getElementById('inp-achtergrond').value = 'Zij-instromer';
+    document.getElementById('inp-diploma').value = 'Coach (ICF gecertificeerd)';
+    document.getElementById('inp-instelling').value = 'Coach Academy';
+    document.getElementById('inp-jaar').value = '2018';
+    updateNames();
+
+
+    // Achtergrond listener — prefill naam voor demo persona's
+    document.getElementById('inp-achtergrond').addEventListener('change', function() {
+      if (this.value === 'Instromer vanuit andere zorgorganisatie') {
+        document.getElementById('inp-voornaam').value = 'Fatima';
+        document.getElementById('inp-achternaam').value = 'Yilmaz';
+      }
+    });
+
+    // Diploma input listener
+    const diplomaInput = document.getElementById('inp-diploma');
+    diplomaInput.addEventListener('input', () => applyDiploma(diplomaInput.value));
+    diplomaInput.addEventListener('change', () => applyDiploma(diplomaInput.value));
+    // Apply prefilled diploma
+    applyDiploma(diplomaInput.value);
+  }
+
+  init();
+</script>
+</body>
+</html>
