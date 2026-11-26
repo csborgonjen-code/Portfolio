@@ -59,24 +59,10 @@
     </div>
   </div>
 
-<!-- Before / After -->
-  <div class="px-6 sm:px-12 lg:px-40 flex flex-col gap-6 lg:gap-8">
-    <div class="flex flex-col sm:flex-row gap-8 lg:gap-10">
-      <div class="flex-1 flex flex-col gap-3">
-        <p class="text-[11px] uppercase tracking-[0.12em] text-[#999]" style="font-family: 'Inter', sans-serif !important; font-size: 11px !important; line-height: 1 !important;">Before</p>
-        <div class="overflow-hidden shadow-[0px_20px_30px_rgba(0,0,0,0.10)]">
-          <img src="assets/snomed/before.png" alt="Old SNOMED design" class="w-full h-auto" style="filter: grayscale(30%);">
-        </div>
-        <p>First SNOMED screen: no clear path through the three decision branches.</p>
-      </div>
-      <div class="flex-1 flex flex-col gap-3">
-        <p class="text-[11px] uppercase tracking-[0.12em] text-[#999]" style="font-family: 'Inter', sans-serif !important; font-size: 11px !important; line-height: 1 !important;">After</p>
-        <div class="overflow-hidden shadow-[0px_20px_30px_rgba(0,0,0,0.10)]">
-          <img src="assets/snomed/after.png" alt="New SNOMED design" class="w-full h-auto">
-        </div>
-        <p>Improved visual hierarchy, and added three numbered steps to take the doktors by the hand though complex SNOMED standardisation</p>
-      </div>
-    </div>
+  <!-- Full Image — final design annotated -->
+  <div class="bg-[#f8f8f7] px-6 sm:px-12 lg:px-40 py-10 lg:py-20 flex flex-col gap-6 lg:gap-10 items-center">
+    <img src="assets/snomed/selected term.png" alt="SNOMED interface — final design" class="w-full h-auto shadow-[0px_20px_40px_rgba(0,0,0,0.12)]">
+    <p class="text-[16px] font-medium text-[#666] leading-[26px] text-center">The redesigned SNOMED browser: numbered steps, AI suggestions, hierarchy navigation, and attribute editing in a single focused view</p>
   </div>
 
   <!-- The Challenge -->
@@ -143,33 +129,9 @@
     </div>
   </div>
 
-  <!-- Step 1 + Step 2 screens -->
-  <div class="px-6 sm:px-12 lg:px-40 flex flex-col sm:flex-row gap-6 lg:gap-10">
-    <div class="flex-1 flex flex-col gap-3">
-      <p class="text-[11px] uppercase tracking-[0.12em] text-[#999]" style="font-family: 'Inter', sans-serif !important; font-size: 11px !important; line-height: 1 !important;">Step 1 — Choose a term</p>
-      <div class="overflow-hidden shadow-[0px_20px_30px_rgba(0,0,0,0.10)]">
-        <img src="assets/snomed/After click.png" alt="Step 1 — choose a term" class="w-full h-auto">
-      </div>
-    </div>
-    <div class="flex-1 flex flex-col gap-3">
-      <p class="text-[11px] uppercase tracking-[0.12em] text-[#999]" style="font-family: 'Inter', sans-serif !important; font-size: 11px !important; line-height: 1 !important;">Step 2 — Adjust attributes</p>
-      <div class="overflow-hidden shadow-[0px_20px_30px_rgba(0,0,0,0.10)]">
-        <img src="assets/snomed/edit attributes.png" alt="Step 2 — edit attributes" class="w-full h-auto">
-      </div>
-    </div>
-  </div>
-
-  <!-- Full Image — final design annotated -->
-  <div class="bg-[#f8f8f7] px-6 sm:px-12 lg:px-40 py-10 lg:py-20 flex flex-col gap-6 lg:gap-10 items-center">
-    <img src="assets/snomed/selected term.png" alt="SNOMED interface — final design" class="w-full h-auto shadow-[0px_20px_40px_rgba(0,0,0,0.12)]">
-    <p class="text-[16px] font-medium text-[#666] leading-[26px] text-center">The redesigned SNOMED browser: numbered steps, AI suggestions, hierarchy navigation, and attribute editing in a single focused view</p>
-  </div>
-
-  
-
-  <!-- Working Prototype — split -->
-  <div class="flex flex-col-reverse lg:flex-row gap-10 lg:gap-20 items-start lg:items-center px-6 sm:px-12 lg:px-40">
-    <div class="w-full lg:w-[345px] flex flex-col gap-4">
+  <!-- Working Prototype — stacked: video, then text -->
+  <div class="flex flex-col-reverse gap-10 lg:gap-12 items-start px-6 sm:px-12 lg:px-40">
+    <div class="w-full max-w-full lg:max-w-[860px] flex flex-col gap-4">
       <h3 class="text-[20px] lg:text-[24px] font-medium text-[#333] leading-[36px]">A working prototype, not a static mockup</h3>
       <div class="text-[16px] font-medium text-[#666] leading-[26px] space-y-3">
         <p>Without real search results and basic SNOMED knowledge, the screen is untestable. A static prototype wouldn't cut it.</p>
@@ -178,8 +140,8 @@
         <a href="https://github.com/Medscio/SNOMED-standardization-demo" class="text-accent hover:opacity-70 transition-opacity inline-block" style="font-family: 'Inter', sans-serif; font-weight: 300;">Working demo on GitHub ↗</a>
       </div>
     </div>
-    <div class="bg-[#f8f8f7] w-full lg:flex-1 p-6 lg:p-10 flex flex-col gap-4">
-      <div class="mx-auto" style="width: min(100%, 560px);">
+    <div class="bg-[#f8f8f7] w-full p-6 lg:p-16 flex flex-col gap-4 lg:gap-6">
+      <div class="mx-auto" style="width: min(100%, 900px);">
         <div style="
           border-radius: 18px;
           box-shadow: 0 0 0 2px #1c1c1e, 0 0 0 5px #2a2a2a, 0 24px 60px rgba(0,0,0,0.25);
